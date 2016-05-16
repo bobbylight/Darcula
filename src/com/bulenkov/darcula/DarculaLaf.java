@@ -21,6 +21,7 @@ import com.bulenkov.iconloader.util.ColorUtil;
 import com.bulenkov.iconloader.util.EmptyIcon;
 import com.bulenkov.iconloader.util.StringUtil;
 import com.bulenkov.iconloader.util.SystemInfo;
+import javafx.scene.text.*;
 import sun.awt.AppContext;
 
 import javax.swing.*;
@@ -33,11 +34,13 @@ import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 import java.awt.*;
+import java.awt.Font;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -99,6 +102,7 @@ public final class DarculaLaf extends BasicLookAndFeel {
       defaults.put("CheckBoxMenuItem.checkIcon", EmptyIcon.create(16));
       defaults.put("RadioButtonMenuItem.checkIcon", EmptyIcon.create(16));
       defaults.put("InternalFrame.icon", new IconUIResource(IconLoader.getIcon("/com/bulenkov/darcula/icons/internalFrame.png")));
+      possiblyUpdateFonts(defaults);
       return defaults;
     }
     catch (Exception ignore) {
@@ -143,7 +147,9 @@ public final class DarculaLaf extends BasicLookAndFeel {
   }
 
   public void initComponentDefaults(UIDefaults defaults) {
+    System.out.println("In initComponentDefaults");
     callInit("initComponentDefaults", defaults);
+    possiblyUpdateFonts(defaults);
   }
 
   @SuppressWarnings({"HardCodedStringLiteral"})
@@ -390,5 +396,82 @@ public final class DarculaLaf extends BasicLookAndFeel {
     inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK | InputEvent.CTRL_DOWN_MASK), copyActionKey);
     inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_MASK | InputEvent.CTRL_DOWN_MASK), pasteActionKey);
     inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK | InputEvent.CTRL_DOWN_MASK), DefaultEditorKit.cutAction);
+  }
+
+  private static String getSystemFont() {
+
+    List<String> availableFonts = Arrays.asList(GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames());
+
+    String os = System.getProperty("os.name").toLowerCase();
+    if (os.contains("windows")) {
+
+      String[] possibilities = { "Segoe UI", "Tahoma", "Dialog" };
+      for (String possibility : possibilities) {
+        if (availableFonts.contains(possibility)) {
+          return possibility;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Updates some components to use Tahoma as their font.  This is because
+   * Windows Look and Feel does not set Tahoma for all components that use
+   * it, even as of 1.5.  Note that we only do this for the English locale,
+   * as some locales, such as Japanese, don't use Tahoma (as it does not
+   * support the language's characters).
+   *
+   * @param table The table in which to set the font values.
+   */
+  public static void possiblyUpdateFonts(UIDefaults table) {
+
+    String font = getSystemFont();
+
+      Object mainFont = new UIDefaults.ProxyLazyValue(
+              "javax.swing.plaf.FontUIResource",
+              null,
+              new Object[] { font, Integer.valueOf(Font.PLAIN), Integer.valueOf(12) });
+
+        Object[] fonts = {
+                "Button.font", mainFont,
+                "CheckBox.font", mainFont,
+                "CheckBoxMenuItem.font", mainFont,
+                "ComboBox.font", mainFont,
+                "Label.font", mainFont,
+                "List.font", mainFont,
+                "Menu.font", mainFont,
+                "MenuBar.font", mainFont,
+                "MenuItem.font", mainFont,
+                "OptionPane.font", mainFont,
+                "OptionPane.messageFont", mainFont,
+                "OptionPane.buttonFont", mainFont,
+                "Panel.font", mainFont,
+                "PopupMenu.font", mainFont,
+                "RadioButton.font", mainFont,
+                "RadioButtonMenuItem.font", mainFont,
+                "ScrollPane.font", mainFont,
+                "Spinner.font", mainFont,
+                "TabbedPane.font", mainFont,
+                "Table.font", mainFont,
+                "TableHeader.font", mainFont,
+                "TitledBorder.font", mainFont,
+                "ToggleButton.font", mainFont,
+                "ToolBar.font", mainFont,
+                "ToolTip.font", mainFont,
+                "Tree.font", mainFont,
+                "Viewport.font", mainFont,
+              "EditorPane.font", mainFont,
+              "TextArea.font", mainFont,
+              "TextField.font", mainFont,
+              "TextPane.font", mainFont,
+      };
+      table.putDefaults(fonts);
+
+//    String[] props = { "text", "menuText", "textInactiveText" };
+//    for (String prop : props) {
+//      System.out.println(prop + " == " + table.get(prop));
+//    }
   }
 }
