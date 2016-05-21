@@ -42,7 +42,6 @@ public class DarculaButtonUI extends BasicButtonUI {
 
   @Override
   public void paint(Graphics g, JComponent c) {
-
     if (!(c.getParent() instanceof JToolBar)) {
       final Border border = c.getBorder();
       final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
@@ -85,10 +84,11 @@ public class DarculaButtonUI extends BasicButtonUI {
                                                 textRect.y + metrics.getAscent() + getTextShiftOffset());
     }
     else {
-      g.setColor(UIManager.getColor("Button.darcula.disabledText.shadow"));
-      SwingUtilities2.drawStringUnderlineCharAt(c, g, text, -1,
-                                                textRect.x + getTextShiftOffset()+1,
-                                                textRect.y + metrics.getAscent() + getTextShiftOffset()+1);
+      // Remove disabled shadow effect
+//      g.setColor(UIManager.getColor("Button.darcula.disabledText.shadow"));
+//      SwingUtilities2.drawStringUnderlineCharAt(c, g, text, -1,
+//                                                textRect.x + getTextShiftOffset()+1,
+//                                                textRect.y + metrics.getAscent() + getTextShiftOffset()+1);
       g.setColor(UIManager.getColor("Button.disabledText"));
       SwingUtilities2.drawStringUnderlineCharAt(c, g, text, -1,
                                                 textRect.x + getTextShiftOffset(),

@@ -7,14 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1411d9b-3724-49a0-992a-85d1da5efddd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaMenuUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/darcula.jar" afterPath="$PROJECT_DIR$/build/darcula.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/bulenkov/darcula/DarculaLaf.java" afterPath="$PROJECT_DIR$/src/com/bulenkov/darcula/DarculaLaf.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/bulenkov/darcula/darcula.properties" afterPath="$PROJECT_DIR$/src/com/bulenkov/darcula/darcula.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaButtonUI.java" afterPath="$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaButtonUI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaPopupMenuBorder.java" afterPath="$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaPopupMenuBorder.java" />
     </list>
     <ignored path="Darcula.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -56,8 +51,8 @@
       <file leaf-file-name="DarculaComboBoxUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaComboBoxUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="42" column="39" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
+            <state relative-caret-position="170">
+              <caret line="91" column="55" selection-start-line="91" selection-start-column="55" selection-end-line="91" selection-end-column="55" />
               <folding>
                 <element signature="e#0#13567#0" expanded="true" />
               </folding>
@@ -65,29 +60,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider editor-type-id="MultiMarkdownFxPreviewEditor">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
-            <state split_layout="FIRST">
-              <first_editor relative-caret-position="170">
-                <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
-                <folding />
-              </first_editor>
-              <second_editor />
+      <file leaf-file-name="DarculaTabbedPaneUI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaTabbedPaneUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#1027#0" expanded="true" />
+                <element signature="e#981#982#0" expanded="true" />
+                <element signature="e#1023#1024#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DarculaButtonUI.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DarculaButtonUI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaButtonUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+            <state relative-caret-position="524">
+              <caret line="86" column="38" selection-start-line="86" selection-start-column="38" selection-end-line="86" selection-end-column="38" />
               <folding>
-                <element signature="e#0#4687#0" expanded="true" />
+                <element signature="e#0#4733#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -96,43 +89,45 @@
       <file leaf-file-name="BasicButtonUI.java" pinned="false" current-in-tab="false">
         <entry file="jar://C:/java/32/jdk1.7.0_51/src.zip!/javax/swing/plaf/basic/BasicButtonUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="223" column="16" selection-start-line="223" selection-start-column="16" selection-end-line="223" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DarculaToolBarUI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaToolBarUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BasicToolBarUI.java" pinned="false" current-in-tab="false">
-        <entry file="file://C:/java/32/jdk1.7.0_51/src/javax/swing/plaf/basic/BasicToolBarUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="205" column="60" selection-start-line="205" selection-start-column="42" selection-end-line="205" selection-end-column="60" />
-              <folding>
-                <element signature="e#0#48997#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BasicButtonUI.java" pinned="false" current-in-tab="false">
-        <entry file="file://C:/java/32/jdk1.7.0_51/src/javax/swing/plaf/basic/BasicButtonUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="14">
+            <state relative-caret-position="116">
               <caret line="198" column="16" selection-start-line="198" selection-start-column="16" selection-end-line="198" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#15530#0" expanded="true" />
-              </folding>
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BasicTabbedPaneUI.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/java/32/jdk1.7.0_51/src.zip!/javax/swing/plaf/basic/BasicTabbedPaneUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="1747" column="64" selection-start-line="1747" selection-start-column="64" selection-end-line="1747" selection-end-column="64" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider editor-type-id="MultiMarkdownFxPreviewEditor">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="323">
+                <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DarculaPopupMenuBorder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaPopupMenuBorder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="35" column="42" selection-start-line="35" selection-start-column="42" selection-end-line="35" selection-end-column="42" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -140,8 +135,8 @@
       <file leaf-file-name="darcula.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/darcula.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="154" column="25" selection-start-line="154" selection-start-column="25" selection-end-line="154" selection-end-column="25" />
+            <state relative-caret-position="237">
+              <caret line="148" column="9" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -164,8 +159,10 @@
         <option value="$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaMenuUI.java" />
         <option value="$PROJECT_DIR$/src/com/bulenkov/darcula/DarculaLaf.java" />
         <option value="$PROJECT_DIR$/src/com/bulenkov/darcula/darcula.properties" />
-        <option value="$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaButtonUI.java" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaPopupMenuBorder.java" />
+        <option value="$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaTabbedPaneUI.java" />
+        <option value="$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaButtonUI.java" />
       </list>
     </option>
   </component>
@@ -187,8 +184,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1928" />
-    <option name="y" value="-8" />
+    <option name="x" value="-1878" />
+    <option name="y" value="69" />
     <option name="width" value="1936" />
     <option name="height" value="1176" />
   </component>
@@ -735,15 +732,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1463288762550</updated>
-      <workItem from="1463288763643" duration="11240000" />
+      <workItem from="1463288763643" duration="17249000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11240000" />
+    <option name="totallyTimeSpent" value="17249000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1176" extended-state="6" />
+    <frame x="-1878" y="69" width="1936" height="1176" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -758,6 +755,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32940018" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -765,7 +763,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -937,7 +934,7 @@
         <state relative-caret-position="544">
           <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
           <folding>
-            <element signature="e#0#21474#0" expanded="true" />
+            <element signature="e#0#21474#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -963,8 +960,8 @@
         <state relative-caret-position="116">
           <caret line="673" column="19" selection-start-line="673" selection-start-column="19" selection-end-line="673" selection-end-column="19" />
           <folding>
-            <element signature="e#7039#7040#0" expanded="true" />
-            <element signature="e#7072#7073#0" expanded="true" />
+            <element signature="e#7039#7040#0" expanded="false" />
+            <element signature="e#7072#7073#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1006,38 +1003,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/DarculaLaf.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="434" column="16" selection-start-line="434" selection-start-column="16" selection-end-line="434" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#17768#0" expanded="true" />
-            <element signature="e#11176#11177#0" expanded="true" />
-            <element signature="e#11231#11232#0" expanded="true" />
-            <element signature="e#11302#11303#0" expanded="true" />
-            <element signature="e#11351#11352#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaComboBoxUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="42" column="39" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#13567#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/java/32/jdk1.7.0_51/src.zip!/javax/swing/plaf/basic/BasicButtonUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="223" column="16" selection-start-line="223" selection-start-column="16" selection-end-line="223" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaToolBarUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1074,21 +1039,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/DarculaLaf.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="434" column="16" selection-start-line="434" selection-start-column="16" selection-end-line="434" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#17768#0" expanded="true" />
+            <element signature="e#11176#11177#0" expanded="true" />
+            <element signature="e#11231#11232#0" expanded="true" />
+            <element signature="e#11302#11303#0" expanded="true" />
+            <element signature="e#11351#11352#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/darcula.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="154" column="25" selection-start-line="154" selection-start-column="25" selection-end-line="154" selection-end-column="25" />
+        <state relative-caret-position="237">
+          <caret line="148" column="9" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaButtonUI.java">
+    <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaPopupMenuBorder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#4687#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="272">
+          <caret line="35" column="42" selection-start-line="35" selection-start-column="42" selection-end-line="35" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1098,11 +1075,78 @@
       </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="170">
-            <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+          <first_editor relative-caret-position="323">
+            <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaComboBoxUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="91" column="55" selection-start-line="91" selection-start-column="55" selection-end-line="91" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#13567#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/java/32/jdk1.7.0_51/src.zip!/javax/swing/JTabbedPane.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="1175" column="28" selection-start-line="1175" selection-start-column="28" selection-end-line="1175" selection-end-column="28" />
+          <folding>
+            <element signature="e#40370#40371#0" expanded="true" />
+            <element signature="e#40425#40426#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/java/32/jdk1.7.0_51/src.zip!/javax/swing/plaf/basic/BasicTabbedPaneUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="1747" column="64" selection-start-line="1747" selection-start-column="64" selection-end-line="1747" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaTabbedPaneUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#1027#0" expanded="true" />
+            <element signature="e#981#982#0" expanded="true" />
+            <element signature="e#1023#1024#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/java/32/jdk1.7.0_51/src.zip!/javax/swing/plaf/basic/BasicButtonUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="198" column="16" selection-start-line="198" selection-start-column="16" selection-end-line="198" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/java/32/jdk1.7.0_51/src.zip!/javax/swing/plaf/ComponentUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="163" column="7" selection-start-line="163" selection-start-column="7" selection-end-line="163" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/bulenkov/darcula/ui/DarculaButtonUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="86" column="38" selection-start-line="86" selection-start-column="38" selection-end-line="86" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#4733#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

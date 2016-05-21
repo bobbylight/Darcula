@@ -33,6 +33,6 @@ public class DarculaPopupMenuBorder extends AbstractBorder implements UIResource
 
   @Override
   public Insets getBorderInsets(Component c) {
-    return new InsetsUIResource(1,1,1,1);
+    return new InsetsUIResource(3, 3, 3, 3);
   }
 }
