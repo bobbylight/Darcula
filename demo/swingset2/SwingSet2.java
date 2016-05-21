@@ -652,7 +652,7 @@ public class SwingSet2 extends JPanel {
 	SwingUtilities.invokeLater(new SwingSetRunnable(this, demo) {
 	    public void run() {
 		SwitchToDemoAction action = new SwitchToDemoAction(swingset, (DemoModule) obj);
-		JToggleButton tb = swingset.getToolBar().addToggleButton(action);
+		JButton tb = swingset.getToolBar().addToggleButton(action);
 		swingset.getToolBarGroup().add(tb);
 		if(swingset.getToolBarGroup().getSelection() == null) {
 		    tb.setSelected(true);
@@ -1042,8 +1042,9 @@ public class SwingSet2 extends JPanel {
 	    super();
 	}
 
-	JToggleButton addToggleButton(Action a) {
-	    JToggleButton tb = new JToggleButton(
+	JButton addToggleButton(Action a) {
+	    //JToggleButton tb = new JToggleButton(
+		JButton tb = new JButton(
 		(String)a.getValue(Action.NAME),
 		(Icon)a.getValue(Action.SMALL_ICON)
 	    );

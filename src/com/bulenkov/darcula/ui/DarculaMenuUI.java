@@ -52,10 +52,12 @@ public class DarculaMenuUI extends BasicMenuUI {
                     DarculaMenuUI.this.parentWindow.removeWindowFocusListener(listener);
                 }
 
-                Window parentWindow = SwingUtilities.getWindowAncestor(menuItem);
-                if (parentWindow != null) {
-                    DarculaMenuUI.this.parentWindow = parentWindow;
-                    parentWindow.addWindowFocusListener(listener);
+                if (menuItem != null) {
+                    Window parentWindow = SwingUtilities.getWindowAncestor(menuItem);
+                    if (parentWindow != null) {
+                        DarculaMenuUI.this.parentWindow = parentWindow;
+                        parentWindow.addWindowFocusListener(listener);
+                    }
                 }
             }
         });

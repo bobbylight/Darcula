@@ -42,7 +42,20 @@ public class DarculaButtonUI extends BasicButtonUI {
 
   @Override
   public void paint(Graphics g, JComponent c) {
-    if (!(c.getParent() instanceof JToolBar)) {
+
+    AbstractButton b = (AbstractButton)c;
+    Container parent = b.getParent();
+
+    if (parent instanceof JToolBar) {
+      if (b.getModel().isRollover() || b.getModel().isArmed()) {
+        Color prevColor = g.getColor();
+        g.setColor(UIManager.getColor("ToolBar.Button.rolloverBackground"));
+        g.fillRect(0, 0, c.getWidth(), c.getHeight());
+        g.setColor(prevColor);
+      }
+    }
+
+    else {
       final Border border = c.getBorder();
       final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
       final boolean square = isSquare(c);

@@ -257,7 +257,7 @@ public final class DarculaLaf extends BasicLookAndFeel {
           Integer.parseInt(numbers.get(1)),
           Integer.parseInt(numbers.get(2)),
           Integer.parseInt(numbers.get(3)));
-    } else if (key.endsWith(".border")) {
+    } else if (key.endsWith(".border") || key.endsWith("Border")) {
       try {
         return Class.forName(value).newInstance();
       } catch (Exception e) {log(e);}
