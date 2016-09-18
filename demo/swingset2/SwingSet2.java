@@ -279,6 +279,7 @@ public class SwingSet2 extends JPanel {
 	tabbedPane = new JTabbedPane();
 	add(tabbedPane, BorderLayout.CENTER);
 	tabbedPane.getModel().addChangeListener(new TabListener());
+	//tabbedPane.setTabPlacement(JTabbedPane.BOTTOM);
 
 	statusField = new JTextField("");
 	statusField.setEditable(false);
