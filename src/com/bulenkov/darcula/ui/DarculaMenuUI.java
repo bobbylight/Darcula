@@ -40,6 +40,7 @@ public class DarculaMenuUI extends BasicMenuUI {
         listener = new Listener();
     }
 
+    @Override
     public void installUI(final JComponent c) {
 
         super.installUI(c);
@@ -80,6 +81,17 @@ public class DarculaMenuUI extends BasicMenuUI {
         }
 
         super.paintText(g, menuItem, textRect, text);
+    }
+
+    @Override
+    public void uninstallUI(JComponent c) {
+
+        if (parentWindow != null) {
+            parentWindow.removeWindowFocusListener(listener);
+            parentWindow = null;
+        }
+
+        super.uninstallUI(c);
     }
 
     /**
