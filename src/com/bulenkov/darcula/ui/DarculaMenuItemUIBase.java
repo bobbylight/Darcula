@@ -23,15 +23,49 @@ import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicMenuItemUI;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
  * @author Konstantin Bulenkov
  */
 public class DarculaMenuItemUIBase extends BasicMenuItemUI {
+
+    /**
+     * JMenuItems don't implement rollover OOTB, and indeed, DefaultButtonModel will only allow it to function on
+     * enabled components, so because we want rollover on disabled menu items, we must do it ourselves.
+     */
+    private RolloverListener rolloverListener = new RolloverListener();
+
+    /**
+     * Again, we're implementing rollover ourselves since standard Swing code does not allow it to function on
+     * disabled components.
+     */
+    private boolean rollover;
+
+    private Color selectionInactiveBackground;
+
   @SuppressWarnings({"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
   public static ComponentUI createUI(JComponent c) {
       return new DarculaMenuItemUIBase();
+  }
+
+    protected String getPropertyPrefix() {
+        return "MenuItem";
+    }
+
+    protected void installDefaults() {
+      super.installDefaults();
+
+      selectionInactiveBackground = UIManager.getColor("MenuItem.selectionInactiveBackground");
+
+      menuItem.setRolloverEnabled(true);
+      menuItem.addMouseListener(rolloverListener);
+  }
+
+  protected void uninstallDefaults() {
+      menuItem.removeMouseListener(rolloverListener);
+      super.uninstallDefaults();
   }
 
   public void processMouseEvent(JMenuItem item, MouseEvent e, MenuElement path[], MenuSelectionManager manager) {
@@ -50,6 +84,39 @@ public class DarculaMenuItemUIBase extends BasicMenuItemUI {
       for (i = 0, c = path.length - 1; i < c; i++)
         newPath[i] = path[i];
       manager.setSelectedPath(newPath);
+    }
+  }
+
+  protected void paintBackground(Graphics g, JMenuItem menuItem, Color bgColor) {
+
+    ButtonModel model = menuItem.getModel();
+    Color oldColor = g.getColor();
+    int menuWidth = menuItem.getWidth();
+    int menuHeight = menuItem.getHeight();
+
+    if(menuItem.isOpaque()) {
+        if (model.isArmed()|| (menuItem instanceof JMenu && model.isSelected())) {
+            g.setColor(bgColor);
+        }
+        else if (rollover && !model.isEnabled()) {
+            g.setColor(selectionInactiveBackground);
+        }
+        else {
+            g.setColor(menuItem.getBackground());
+        }
+        g.fillRect(0,0, menuWidth, menuHeight);
+        g.setColor(oldColor);
+    }
+    else if (model.isArmed() || (menuItem instanceof JMenu &&
+            model.isSelected())) {
+        g.setColor(bgColor);
+        g.fillRect(0,0, menuWidth, menuHeight);
+        g.setColor(oldColor);
+    }
+    else if (rollover && !model.isEnabled()) {
+        g.setColor(selectionInactiveBackground);
+        g.fillRect(0,0, menuWidth, menuHeight);
+        g.setColor(oldColor);
     }
   }
 
@@ -206,4 +273,27 @@ public class DarculaMenuItemUIBase extends BasicMenuItemUI {
           rect.height -= (insets.bottom + rect.y);
       }
   }
+
+    private class RolloverListener extends MouseAdapter {
+
+        public void mouseEntered(MouseEvent e) {
+            AbstractButton b = (AbstractButton) e.getSource();
+            ButtonModel model = b.getModel();
+
+            if (b.isRolloverEnabled() && !SwingUtilities.isLeftMouseButton(e)) {
+                rollover = true;
+                menuItem.repaint();
+            }
+        }
+
+        public void mouseExited(MouseEvent e) {
+            AbstractButton b = (AbstractButton) e.getSource();
+            ButtonModel model = b.getModel();
+            if (b.isRolloverEnabled()) {
+                rollover = false;
+                menuItem.repaint();
+            }
+        }
+
+    }
 }
