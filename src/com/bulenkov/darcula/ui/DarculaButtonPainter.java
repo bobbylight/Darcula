@@ -19,6 +19,7 @@ import com.bulenkov.darcula.DarculaUIUtil;
 import com.bulenkov.iconloader.util.GraphicsConfig;
 import com.bulenkov.iconloader.util.Gray;
 
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.InsetsUIResource;
 import javax.swing.plaf.UIResource;
@@ -34,6 +35,7 @@ public class DarculaButtonPainter implements Border, UIResource {
   public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
     final Graphics2D g2d = (Graphics2D)g;
     final Insets ins = getBorderInsets(c);
+
     final int yOff = (ins.top + ins.bottom) / 4;
     final boolean square = DarculaButtonUI.isSquare(c);
     int offset = square ? 1 : getOffset();

@@ -149,7 +149,6 @@ public final class DarculaLaf extends BasicLookAndFeel {
   public void initComponentDefaults(UIDefaults defaults) {
     System.out.println("In initComponentDefaults");
     callInit("initComponentDefaults", defaults);
-    possiblyUpdateFonts(defaults);
   }
 
   @SuppressWarnings({"HardCodedStringLiteral"})
@@ -401,18 +400,23 @@ public final class DarculaLaf extends BasicLookAndFeel {
   private static String getSystemFont() {
 
     List<String> availableFonts = Arrays.asList(GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames());
+    String[] possibilities = null;
 
     String os = System.getProperty("os.name").toLowerCase();
     if (os.contains("windows")) {
+      possibilities = new String[] { "Segoe UI", "Tahoma", "Dialog" };
+    }
+//    else if (os.contains("mac")) {
+//      possibilities = new String[] { "San Francisco", "Helvetica Neue", "Lucida Grande" };
+//    }
 
-      String[] possibilities = { "Segoe UI", "Tahoma", "Dialog" };
+    if (possibilities != null) {
       for (String possibility : possibilities) {
         if (availableFonts.contains(possibility)) {
           return possibility;
         }
       }
     }
-
     return null;
   }
 
@@ -429,39 +433,41 @@ public final class DarculaLaf extends BasicLookAndFeel {
 
     String font = getSystemFont();
 
+    if (font != null) {
+
       Object mainFont = new UIDefaults.ProxyLazyValue(
               "javax.swing.plaf.FontUIResource",
               null,
-              new Object[] { font, Integer.valueOf(Font.PLAIN), Integer.valueOf(12) });
+              new Object[]{font, Integer.valueOf(Font.PLAIN), Integer.valueOf(12)});
 
-        Object[] fonts = {
-                "Button.font", mainFont,
-                "CheckBox.font", mainFont,
-                "CheckBoxMenuItem.font", mainFont,
-                "ComboBox.font", mainFont,
-                "Label.font", mainFont,
-                "List.font", mainFont,
-                "Menu.font", mainFont,
-                "MenuBar.font", mainFont,
-                "MenuItem.font", mainFont,
-                "OptionPane.font", mainFont,
-                "OptionPane.messageFont", mainFont,
-                "OptionPane.buttonFont", mainFont,
-                "Panel.font", mainFont,
-                "PopupMenu.font", mainFont,
-                "RadioButton.font", mainFont,
-                "RadioButtonMenuItem.font", mainFont,
-                "ScrollPane.font", mainFont,
-                "Spinner.font", mainFont,
-                "TabbedPane.font", mainFont,
-                "Table.font", mainFont,
-                "TableHeader.font", mainFont,
-                "TitledBorder.font", mainFont,
-                "ToggleButton.font", mainFont,
-                "ToolBar.font", mainFont,
-                "ToolTip.font", mainFont,
-                "Tree.font", mainFont,
-                "Viewport.font", mainFont,
+      Object[] fonts = {
+              "Button.font", mainFont,
+              "CheckBox.font", mainFont,
+              "CheckBoxMenuItem.font", mainFont,
+              "ComboBox.font", mainFont,
+              "Label.font", mainFont,
+              "List.font", mainFont,
+              "Menu.font", mainFont,
+              "MenuBar.font", mainFont,
+              "MenuItem.font", mainFont,
+              "OptionPane.font", mainFont,
+              "OptionPane.messageFont", mainFont,
+              "OptionPane.buttonFont", mainFont,
+              "Panel.font", mainFont,
+              "PopupMenu.font", mainFont,
+              "RadioButton.font", mainFont,
+              "RadioButtonMenuItem.font", mainFont,
+              "ScrollPane.font", mainFont,
+              "Spinner.font", mainFont,
+              "TabbedPane.font", mainFont,
+              "Table.font", mainFont,
+              "TableHeader.font", mainFont,
+              "TitledBorder.font", mainFont,
+              "ToggleButton.font", mainFont,
+              "ToolBar.font", mainFont,
+              "ToolTip.font", mainFont,
+              "Tree.font", mainFont,
+              "Viewport.font", mainFont,
               "EditorPane.font", mainFont,
               "TextArea.font", mainFont,
               "TextField.font", mainFont,
@@ -469,6 +475,7 @@ public final class DarculaLaf extends BasicLookAndFeel {
       };
       table.putDefaults(fonts);
 
+    }
 //    String[] props = { "text", "menuText", "textInactiveText" };
 //    for (String prop : props) {
 //      System.out.println(prop + " == " + table.get(prop));

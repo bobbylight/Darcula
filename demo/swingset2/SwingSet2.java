@@ -654,6 +654,8 @@ public class SwingSet2 extends JPanel {
 	    public void run() {
 		SwitchToDemoAction action = new SwitchToDemoAction(swingset, (DemoModule) obj);
 		JButton tb = swingset.getToolBar().addToggleButton(action);
+			tb.setBorderPainted(false);
+			tb.setRolloverEnabled(true);
 		swingset.getToolBarGroup().add(tb);
 		if(swingset.getToolBarGroup().getSelection() == null) {
 		    tb.setSelected(true);
