@@ -56,17 +56,20 @@ public class DarculaButtonUI extends BasicButtonUI {
     }
 
     else {
+      final AbstractButton button = (AbstractButton) c;
+      final ButtonModel model = button.getModel();
       final Border border = c.getBorder();
       final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
       final boolean square = isSquare(c);
-      if (c.isEnabled() && border != null) {
+      if (c.isEnabled() && border != null && button.isContentAreaFilled() && !(c instanceof JToggleButton)) {
         final Insets ins = border.getBorderInsets(c);
         final int yOff = (ins.top + ins.bottom) / 4;
         if (!square) {
-          if (((JButton) c).isDefaultButton()) {
-            ((Graphics2D) g).setPaint(new GradientPaint(0, 0, getSelectedButtonColor1(), 0, c.getHeight(), getSelectedButtonColor2()));
-          } else {
-            ((Graphics2D) g).setPaint(new GradientPaint(0, 0, getButtonColor1(), 0, c.getHeight(), getButtonColor2()));
+          if (c instanceof JButton && ((JButton)c).isDefaultButton() || model.isSelected()) {
+            ((Graphics2D)g).setPaint(new GradientPaint(0, 0, getSelectedButtonColor1(), 0, c.getHeight(), getSelectedButtonColor2()));
+          }
+          else {
+            ((Graphics2D)g).setPaint(new GradientPaint(0, 0, getButtonColor1(), 0, c.getHeight(), getButtonColor2()));
           }
         }
         g.fillRoundRect(square ? 2 : 4, yOff, c.getWidth() - 2 * 4, c.getHeight() - 2 * yOff, square ? 3 : 5, square ? 3 : 5);
@@ -77,8 +80,8 @@ public class DarculaButtonUI extends BasicButtonUI {
   }
 
   protected void paintText(Graphics g, JComponent c, Rectangle textRect, String text) {
-    AbstractButton button = (AbstractButton)c;
-    ButtonModel model = button.getModel();
+    final AbstractButton button = (AbstractButton)c;
+    final ButtonModel model = button.getModel();
     Color fg = button.getForeground();
     if (fg instanceof UIResource && button instanceof JButton && ((JButton)button).isDefaultButton()) {
       final Color selectedFg = UIManager.getColor("Button.darcula.selectedButtonForeground");
@@ -114,7 +117,7 @@ public class DarculaButtonUI extends BasicButtonUI {
   @Override
   public void update(Graphics g, JComponent c) {
     super.update(g, c);
-    if (((JButton)c).isDefaultButton() && !SystemInfo.isMac) {
+    if (c instanceof JButton && ((JButton)c).isDefaultButton() && !SystemInfo.isMac) {
       if (!c.getFont().isBold()) {
        c.setFont(c.getFont().deriveFont(Font.BOLD));
       }

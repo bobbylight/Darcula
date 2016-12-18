@@ -1,5 +1,5 @@
-Darcula
-=======
+Darcula IDE Theme
+=================
 
 Darcula Look and Feel
 

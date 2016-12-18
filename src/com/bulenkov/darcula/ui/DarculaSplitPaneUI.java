@@ -16,27 +16,19 @@
 
 package com.bulenkov.darcula.ui;
 
-import javax.swing.*;
+import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.metal.MetalToolBarUI;
-import java.awt.*;
+import javax.swing.plaf.basic.BasicSplitPaneDivider;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 
-/**
- * @author Konstantin Bulenkov
- */
-public class DarculaToolBarUI extends MetalToolBarUI {
+public class DarculaSplitPaneUI extends BasicSplitPaneUI {
   @SuppressWarnings({"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
   public static ComponentUI createUI(JComponent c) {
-    return new DarculaToolBarUI();
+    return new DarculaSplitPaneUI();
   }
 
   @Override
-  public void paint(Graphics g, JComponent c) {
-    g.setColor(UIManager.getColor("ToolBar.background"));
-    g.fillRect(0, 0, c.getWidth(), c.getHeight());
-  }
-
-  @Override
-  protected void setBorderToNonRollover(Component c) {
+  public BasicSplitPaneDivider createDefaultDivider() {
+    return new DarculaSplitPaneDivider(this);
   }
 }
