@@ -30,11 +30,13 @@ public class DarculaToolBarUI extends MetalToolBarUI {
     return new DarculaToolBarUI();
   }
 
-  @Override
-  public void paint(Graphics g, JComponent c) {
-    g.setColor(UIManager.getColor("ToolBar.background"));
-    g.fillRect(0, 0, c.getWidth(), c.getHeight());
-  }
+// Not sure why main Darcula overrides super.paint(), as this is effectively turning off
+// the honoring of setOpaque(false)...
+//  @Override
+//  public void paint(Graphics g, JComponent c) {
+//    g.setColor(UIManager.getColor("ToolBar.background"));
+//    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+//  }
 
   @Override
   protected void setBorderToNonRollover(Component c) {
