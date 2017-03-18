@@ -278,7 +278,6 @@ public class DarculaMenuItemUIBase extends BasicMenuItemUI {
 
         public void mouseEntered(MouseEvent e) {
             AbstractButton b = (AbstractButton) e.getSource();
-            ButtonModel model = b.getModel();
 
             if (b.isRolloverEnabled() && !SwingUtilities.isLeftMouseButton(e)) {
                 rollover = true;
@@ -288,7 +287,6 @@ public class DarculaMenuItemUIBase extends BasicMenuItemUI {
 
         public void mouseExited(MouseEvent e) {
             AbstractButton b = (AbstractButton) e.getSource();
-            ButtonModel model = b.getModel();
             if (b.isRolloverEnabled()) {
                 rollover = false;
                 menuItem.repaint();

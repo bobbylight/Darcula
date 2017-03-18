@@ -352,6 +352,11 @@ public class SwingSet2 extends JPanel {
 		       "FileMenu.save_as_accessible_description", null);
 
 
+	fileMenu.addSeparator();
+	JMenu dummyMenu = new JMenu("Disabled Menu");
+	dummyMenu.setEnabled(false);
+	fileMenu.add(dummyMenu);
+
 	if(!isApplet()) {
 	    fileMenu.addSeparator();
 	    
