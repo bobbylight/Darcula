@@ -212,6 +212,12 @@ public final class DarculaLaf extends BasicLookAndFeel {
       if (SystemInfo.isWindows || isMacOSYosemite) {
         installMacOSXFonts(defaults);
       }
+
+      if (SystemInfo.isMac && !"true".equalsIgnoreCase(System.getProperty("apple.laf.useScreenMenuBar", "false"))) {
+        defaults.put("MenuBarUI", "com.bulenkov.darcula.ui.DarculaMenuBarUI");
+        defaults.put("MenuUI", "javax.swing.plaf.basic.BasicMenuUI");
+      }
+
       return defaults;
     }
     catch (Exception ignore) {
