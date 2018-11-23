@@ -98,6 +98,7 @@ public final class DarculaLaf extends BasicLookAndFeel {
       defaults.put("Spinner.arrowButtonSize", new Dimension(16, 5));
       defaults.put("Tree.collapsedIcon", new IconUIResource(IconLoader.getIcon("/com/bulenkov/darcula/icons/treeNodeCollapsed.png")));
       defaults.put("Tree.expandedIcon", new IconUIResource(IconLoader.getIcon("/com/bulenkov/darcula/icons/treeNodeExpanded.png")));
+      defaults.put("Menu.arrowIcon", new IconUIResource(IconLoader.getIcon("/com/bulenkov/darcula/icons/menuItemArrowIcon.png")));
       defaults.put("CheckBoxMenuItem.checkIcon", EmptyIcon.create(16));
       defaults.put("RadioButtonMenuItem.checkIcon", EmptyIcon.create(16));
       defaults.put("InternalFrame.icon", new IconUIResource(IconLoader.getIcon("/com/bulenkov/darcula/icons/internalFrame.png")));
@@ -123,16 +124,19 @@ public final class DarculaLaf extends BasicLookAndFeel {
 
   @SuppressWarnings("IOResourceOpenedButNotSafelyClosed")
   private static void patchStyledEditorKit() {
+
+    StyleSheet defaultStyles = new StyleSheet();
+
     try {
-      StyleSheet defaultStyles = new StyleSheet();
+
       InputStream is = DarculaLaf.class.getResourceAsStream("darcula.css");
       Reader r = new BufferedReader(new InputStreamReader(is, "UTF-8"));
       defaultStyles.loadRules(r, null);
       r.close();
-      final Field keyField = HTMLEditorKit.class.getDeclaredField("DEFAULT_STYLES_KEY");
-      keyField.setAccessible(true);
-      final Object key = keyField.get(null);
-      AppContext.getAppContext().put(key, defaultStyles);
+
+      // See setStyleSheet() implementation; this value is shared across all
+      // instances of HTMLEditorKit.  Odd, I know.
+      new HTMLEditorKit().setStyleSheet(defaultStyles);
     } catch (Exception e) {
       log(e);
     }
