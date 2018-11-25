@@ -49,6 +49,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.basic.BasicLookAndFeel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.HierarchyEvent;
@@ -420,7 +421,7 @@ public class SwingSet3 extends SingleFrameApplication  {
     protected JMenu createLookAndFeelMenu() {
         JMenu menu = new JMenu();
         menu.setName("lookAndFeel");
-        
+
         // Look for toolkit look and feels first
         UIManager.LookAndFeelInfo lookAndFeelInfos[] = UIManager.getInstalledLookAndFeels();
         lookAndFeel = UIManager.getLookAndFeel().getClass().getName();

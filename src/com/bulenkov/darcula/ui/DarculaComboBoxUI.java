@@ -92,11 +92,6 @@ public class DarculaComboBoxUI extends BasicComboBoxUI implements Border {
         path.lineTo(xU + 1, yU + 2);
         path.closePath();
         g.fill(path);
-        g.translate(-2, 0);
-        if (!isTableCellEditor(myComboBox)) {
-          g.setColor(getArrowButtonFillColor(getBorderColor()));
-          g.drawLine(0, -1, 0, h);
-        }
         config.restore();
       }
 
@@ -291,8 +286,6 @@ public class DarculaComboBoxUI extends BasicComboBoxUI implements Border {
     }
     final Color borderColor = getBorderColor();//ColorUtil.shift(UIUtil.getBorderColor(), 4);
     g.setColor(getArrowButtonFillColor(borderColor));
-    int off = hasFocus ? 1 : 0;
-    g.drawLine(xxx + 5, y + 1 + off, xxx + 5, height - 3);
 
     Rectangle r = rectangleForCurrentValue();
     paintCurrentValueBackground(g, r, hasFocus);

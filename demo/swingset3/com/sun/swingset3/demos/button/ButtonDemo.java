@@ -32,6 +32,7 @@
 package com.sun.swingset3.demos.button;
 
 
+import com.bulenkov.darcula.DarculaLaf;
 import com.sun.swingset3.DemoProperties;
 import com.sun.swingset3.demos.JHyperlink;
 
@@ -66,6 +67,8 @@ import java.net.URISyntaxException;
 )
 public class ButtonDemo extends JPanel {
 
+    private JButton defaultButton;
+
     public ButtonDemo() {
         setToolTipText("Demonstrates JButton, Swing's push button component.");
         initComponents();
@@ -84,6 +87,9 @@ public class ButtonDemo extends JPanel {
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 8));
         panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
                 "Simple Buttons"));
+
+        defaultButton = new JButton("Default button");
+        panel.add(defaultButton);
 
         //<snip>Create simple button
         final JButton simpleButton = new JButton("Do it");
@@ -204,14 +210,20 @@ public class ButtonDemo extends JPanel {
     }
 
     public static void main(String args[]) {
-        final ButtonDemo buttonDemo = new ButtonDemo();
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    UIManager.setLookAndFeel(new DarculaLaf());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                final ButtonDemo buttonDemo = new ButtonDemo();
                 JFrame frame = new JFrame("JButton Demo");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.add(buttonDemo);
                 frame.pack();
+                frame.getRootPane().setDefaultButton(buttonDemo.defaultButton);
                 frame.setVisible(true);
             }
         });

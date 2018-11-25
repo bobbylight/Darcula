@@ -202,7 +202,7 @@ public class DarculaMenuItemUIBase extends BasicMenuItemUI {
                               MenuItemLayoutHelper.LayoutResult lr) {
     if (!lh.getAccText().equals("")) {
       ButtonModel model = lh.getMenuItem().getModel();
-      g.setFont(lh.getAccFontMetrics().getFont());
+      //g.setFont(lh.getAccFontMetrics().getFont());
       if (!model.isEnabled()) {
         // *** paint the accText disabled
         if (disabledForeground != null) {
@@ -215,20 +215,9 @@ public class DarculaMenuItemUIBase extends BasicMenuItemUI {
           SwingUtilities2.drawString(lh.getMenuItem(), g,
               lh.getAccText(), lr.getAccRect().x,
               lr.getAccRect().y + lh.getAccFontMetrics().getAscent());
-          g.setColor(lh.getMenuItem().getBackground().darker());
-          SwingUtilities2.drawString(lh.getMenuItem(), g,
-              lh.getAccText(), lr.getAccRect().x - 1,
-              lr.getAccRect().y + lh.getFontMetrics().getAscent() - 1);
         }
       } else {
-        // *** paint the accText normally
-        if (model.isArmed()
-            || (lh.getMenuItem() instanceof JMenu
-            && model.isSelected())) {
-          g.setColor(acceleratorSelectionForeground);
-        } else {
           g.setColor(acceleratorForeground);
-        }
         SwingUtilities2.drawString(lh.getMenuItem(), g, lh.getAccText(),
             lr.getAccRect().x, lr.getAccRect().y +
                 lh.getAccFontMetrics().getAscent());

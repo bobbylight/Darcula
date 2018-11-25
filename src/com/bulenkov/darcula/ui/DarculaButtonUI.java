@@ -47,17 +47,22 @@ public class DarculaButtonUI extends BasicButtonUI {
     Container parent = b.getParent();
 
     if (parent instanceof JToolBar) {
-      if (b.getModel().isRollover() || b.getModel().isArmed()) {
+      if (b.getModel().isRollover()) {
         Color prevColor = g.getColor();
         g.setColor(UIManager.getColor("ToolBar.Button.rolloverBackground"));
         g.fillRect(0, 0, c.getWidth(), c.getHeight());
         g.setColor(prevColor);
       }
+      else if (b.getModel().isPressed()) {
+          Color prevColor = g.getColor();
+          g.setColor(UIManager.getColor("ToolBar.Button.armedBackground"));
+          g.fillRect(0, 0, c.getWidth(), c.getHeight());
+          g.setColor(prevColor);
+      }
     }
 
     else {
       final AbstractButton button = (AbstractButton) c;
-      final ButtonModel model = button.getModel();
       final Border border = c.getBorder();
       final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
       final boolean square = isSquare(c);
@@ -65,12 +70,15 @@ public class DarculaButtonUI extends BasicButtonUI {
         final Insets ins = border.getBorderInsets(c);
         final int yOff = (ins.top + ins.bottom) / 4;
         if (!square) {
-          if (c instanceof JButton && ((JButton)c).isDefaultButton() || model.isSelected()) {
-            ((Graphics2D)g).setPaint(new GradientPaint(0, 0, getSelectedButtonColor1(), 0, c.getHeight(), getSelectedButtonColor2()));
-          }
-          else {
-            ((Graphics2D)g).setPaint(new GradientPaint(0, 0, getButtonColor1(), 0, c.getHeight(), getButtonColor2()));
-          }
+
+            Color bg;
+            if (c instanceof JButton && ((JButton)c).isDefaultButton()) {
+                bg = UIManager.getColor("Button.darcula.defaultButtonBackground");
+            }
+            else {
+                bg = UIManager.getColor("Button.darcula.background");
+            }
+            g.setColor(bg);
         }
         g.fillRoundRect(square ? 2 : 4, yOff, c.getWidth() - 2 * 4, c.getHeight() - 2 * yOff, square ? 3 : 5, square ? 3 : 5);
       }
@@ -130,13 +138,5 @@ public class DarculaButtonUI extends BasicButtonUI {
 
   protected Color getButtonColor2() {
     return UIManager.getColor("Button.darcula.color2");
-  }
-
-  protected Color getSelectedButtonColor1() {
-    return UIManager.getColor("Button.darcula.selection.color1");
-  }
-
-  protected Color getSelectedButtonColor2() {
-    return UIManager.getColor("Button.darcula.selection.color2");
   }
 }
