@@ -16,10 +16,7 @@
 package com.bulenkov.darcula.ui;
 
 import com.bulenkov.darcula.DarculaUIUtil;
-import com.bulenkov.iconloader.util.EmptyIcon;
-import com.bulenkov.iconloader.util.GraphicsConfig;
-import com.bulenkov.iconloader.util.Gray;
-import com.bulenkov.iconloader.util.UIUtil;
+import com.bulenkov.iconloader.util.*;
 import sun.swing.SwingUtilities2;
 
 import javax.swing.*;
@@ -91,37 +88,26 @@ public class DarculaCheckBoxUI extends MetalCheckBoxUI {
       g.fillRect(1, 1, w - 2, h - 2);
 
       //setup AA for lines
-      final GraphicsConfig config = new GraphicsConfig(g);
-      g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-      g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_DEFAULT);
+      final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
 
-      final boolean armed = b.getModel().isArmed();
+      g.setColor(getColor("checkBoxBackgroundColor", null));
 
       if (c.hasFocus()) {
-        g.setPaint(new GradientPaint(w/2, 1, getFocusedBackgroundColor1(armed), w/2, h, getFocusedBackgroundColor2(armed)));
         g.fillRoundRect(0, 0, w - 2, h - 2, 4, 4);
-
         DarculaUIUtil.paintFocusRing(g, 1, 1, w - 2, h - 2);
       } else {
-        g.setPaint(new GradientPaint(w / 2, 1, getBackgroundColor1(), w / 2, h, getBackgroundColor2()));
         g.fillRoundRect(0, 0, w, h - 1 , 4, 4);
 
-        g.setPaint(new GradientPaint(w / 2, 1, getBorderColor1(b.isEnabled()), w / 2, h, getBorderColor2(b.isEnabled())));
-        g.drawRoundRect(0, (UIUtil.isUnderDarcula() ? 1 : 0), w, h - 1, 4, 4);
-
-        g.setPaint(getInactiveFillColor());
+        g.setColor(UIManager.getColor("CheckBox.darcula.checkBoxBorderColor"));
         g.drawRoundRect(0, 0, w, h - 1, 4, 4);
       }
 
       if (b.getModel().isSelected()) {
         g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
         g.setStroke(new BasicStroke(1 *2.0f, BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
-        g.setPaint(getShadowColor(b.isEnabled()));
-        g.drawLine(4, 7, 7, 11);
-        g.drawLine(7, 11, w, 2);
         g.setPaint(getCheckSignColor(b.isEnabled()));
-        g.drawLine(4, 5, 7, 9);
-        g.drawLine(7, 9, w, 0);
+        g.drawLine(4, 7, 6, 10);
+        g.drawLine(6, 10, w - 3, 3);
       }
       g.translate(-x, -y);
       config.restore();
@@ -167,21 +153,6 @@ public class DarculaCheckBoxUI extends MetalCheckBoxUI {
   protected Color getCheckSignColor(boolean enabled) {
     return enabled ? getColor("checkSignColor", Gray._170)
                    : getColor("checkSignColorDisabled", Gray._120);
-  }
-
-  protected Color getShadowColor(boolean enabled) {
-    return enabled ? getColor("shadowColor", Gray._30)
-                   : getColor("shadowColorDisabled", Gray._60);
-  }
-
-  protected Color getFocusedBackgroundColor1(boolean armed) {
-    return armed ? getColor("focusedArmed.backgroundColor1", Gray._100)
-                 : getColor("focused.backgroundColor1", Gray._120);
-  }
-
-  protected Color getFocusedBackgroundColor2(boolean armed) {
-    return armed ? getColor("focusedArmed.backgroundColor2", Gray._55)
-                 : getColor("focused.backgroundColor2", Gray._75);
   }
 
   protected static Color getColor(String shortPropertyName, Color defaultValue) {

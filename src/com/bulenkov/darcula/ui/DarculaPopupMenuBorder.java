@@ -27,7 +27,7 @@ import java.awt.*;
 public class DarculaPopupMenuBorder extends AbstractBorder implements UIResource {
   @Override
   public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-    g.setColor(UIManager.getDefaults().getColor("Separator.foreground"));
+    g.setColor(UIManager.getColor("Separator.foreground"));
     g.drawRect(0,0,width-1,height-1);
   }
 

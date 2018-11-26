@@ -157,6 +157,8 @@ public class FrameDemo extends JPanel {
         JToolBar toolbar = new JToolBar();
         frame.add(toolbar, BorderLayout.NORTH);
         toolbar.add(new JButton("Toolbar Button"));
+        toolbar.add(new JButton("Button 2"));
+        toolbar.add(new JButton("Button 3"));
         //</snip>
 
         //<snip>Add the content area

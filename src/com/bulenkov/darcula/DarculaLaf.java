@@ -21,9 +21,9 @@ import com.bulenkov.iconloader.util.ColorUtil;
 import com.bulenkov.iconloader.util.EmptyIcon;
 import com.bulenkov.iconloader.util.StringUtil;
 import com.bulenkov.iconloader.util.SystemInfo;
-import sun.awt.AppContext;
 
 import javax.swing.*;
+import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.IconUIResource;
 import javax.swing.plaf.InsetsUIResource;
@@ -37,7 +37,6 @@ import java.awt.Font;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.*;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -106,6 +105,7 @@ public final class DarculaLaf extends BasicLookAndFeel {
       defaults.put("OptionPane.questionIcon", new IconUIResource(IconLoader.getIcon("/com/bulenkov/darcula/icons/option_pane_question.png")));
       defaults.put("OptionPane.warningIcon", new IconUIResource(IconLoader.getIcon("/com/bulenkov/darcula/icons/option_pane_warning.png")));
       defaults.put("OptionPane.errorIcon", new IconUIResource(IconLoader.getIcon("/com/bulenkov/darcula/icons/option_pane_error.png")));
+      defaults.put("TitledBorder.border", new BorderUIResource.LineBorderUIResource(new ColorUIResource(0x6b, 0x6b, 0x6b)));
       possiblyUpdateFonts(defaults);
       return defaults;
     }

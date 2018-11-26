@@ -83,8 +83,7 @@ public class DarculaRadioButtonUI extends MetalRadioButtonUI {
     //setup AA for lines
     final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
     final boolean focus = b.hasFocus();
-    g.setPaint(new GradientPaint(0, 0, ColorUtil.shift(c.getBackground(), 1.5),
-        0, c.getHeight(), ColorUtil.shift(c.getBackground(), 1.2)));
+    g.setColor(UIManager.getColor("CheckBox.darcula.checkBoxBackgroundColor"));
     if (focus) {
       g.fillOval(0, 1, w, h);
     } else {
@@ -98,22 +97,12 @@ public class DarculaRadioButtonUI extends MetalRadioButtonUI {
         DarculaUIUtil.paintFocusOval(g, 0, 1, w, h);
       }
     } else {
-      if (UIUtil.isUnderDarcula()) {
-        g.setPaint(new GradientPaint(w / 2, 1, Gray._160.withAlpha(90), w / 2, h, Gray._100.withAlpha(90)));
-        g.drawOval(0, 2, w - 1, h - 1);
-
-        g.setPaint(Gray._40.withAlpha(200));
+        g.setColor(UIManager.getColor("CheckBox.darcula.checkBoxBorderColor"));
         g.drawOval(0, 1, w - 1, h - 1);
-      } else {
-        g.setPaint(b.isEnabled() ? Gray._30 : Gray._130);
-        g.drawOval(0, 1, w - 1, h - 1);
-      }
     }
 
     if (b.isSelected()) {
       final boolean enabled = b.isEnabled();
-      g.setColor(UIManager.getColor(enabled ? "RadioButton.darcula.selectionEnabledShadowColor" : "RadioButton.darcula.selectionDisabledShadowColor"));// ? Gray._30 : Gray._60);
-      g.fillOval(w/2 - rad/2, h/2 , rad, rad);
       g.setColor(UIManager.getColor(enabled ? "RadioButton.darcula.selectionEnabledColor" : "RadioButton.darcula.selectionDisabledColor")); //Gray._170 : Gray._120);
       g.fillOval(w/2 - rad/2, h/2 - 1, rad, rad);
     }

@@ -17,7 +17,6 @@ package com.bulenkov.darcula.ui;
 
 import com.bulenkov.darcula.DarculaUIUtil;
 import com.bulenkov.iconloader.util.GraphicsConfig;
-import com.bulenkov.iconloader.util.Gray;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -66,6 +65,9 @@ public class DarculaButtonPainter implements Border, UIResource {
     if (DarculaButtonUI.isSquare(c)) {
       return new InsetsUIResource(2, 0, 2, 0);
     }
+//    if (c.getParent() instanceof JToolBar) {
+//      return new InsetsUIResource(6, 6, 6, 6);
+//    }
     return new InsetsUIResource(8, 16, 8, 14);
   }
 

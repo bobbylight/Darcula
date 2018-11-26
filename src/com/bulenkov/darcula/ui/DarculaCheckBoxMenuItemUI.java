@@ -16,14 +16,21 @@
 
 package com.bulenkov.darcula.ui;
 
+import com.bulenkov.darcula.DarculaUIUtil;
 import com.bulenkov.iconloader.util.GraphicsConfig;
+import com.bulenkov.iconloader.util.GraphicsUtil;
 import com.bulenkov.iconloader.util.Gray;
 import com.bulenkov.iconloader.util.UIUtil;
 import sun.swing.MenuItemLayoutHelper;
+import sun.swing.SwingUtilities2;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicHTML;
+import javax.swing.text.View;
 import java.awt.*;
+
+import static com.bulenkov.darcula.ui.DarculaCheckBoxUI.getColor;
 
 /**
  * @author Konstantin Bulenkov
@@ -40,38 +47,54 @@ public class DarculaCheckBoxMenuItemUI extends DarculaMenuItemUIBase {
   }
 
   @Override
-  protected void paintCheckIcon(Graphics g2, MenuItemLayoutHelper lh, MenuItemLayoutHelper.LayoutResult lr, Color holdc, Color foreground) {
-    Graphics2D g = (Graphics2D) g2;
-    final GraphicsConfig config = new GraphicsConfig(g);
-    g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_DEFAULT);
+  protected void paintCheckIcon(Graphics g, MenuItemLayoutHelper lh, MenuItemLayoutHelper.LayoutResult lr, Color holdc, Color foreground) {
 
-    g.translate(lr.getCheckRect().x+2, lr.getCheckRect().y+2);
+    final int x = 0;
+    final int y = 0;
+    final int w = 13;
+    final int h = 13;
+    AbstractButton b = lh.getMenuItem();
+    AbstractButton c = b;
+    Graphics2D g2 = (Graphics2D)g;
 
-    final int sz = 13;
-    g.setPaint(new GradientPaint(sz / 2, 1, Gray._110, sz / 2, sz, Gray._95));
-    g.fillRoundRect(0, 0, sz, sz - 1 , 4, 4);
+    g.translate(lr.getCheckRect().x+1, lr.getCheckRect().y+1);
 
-    g.setPaint(new GradientPaint(sz / 2, 1, Gray._120.withAlpha(0x5a), sz / 2, sz, Gray._105.withAlpha(90)));
-    g.drawRoundRect(0, (UIUtil.isUnderDarcula() ? 1 : 0), sz, sz - 1, 4, 4);
+    g2.translate(x, y);
+    final Paint paint = new GradientPaint(w / 2, 0, b.getBackground().brighter(),
+            w / 2, h, b.getBackground());
+    g2.setPaint(paint);
+    g2.fillRect(1, 1, w - 2, h - 2);
 
-    g.setPaint(Gray._40.withAlpha(180));
-    g.drawRoundRect(0, 0, sz, sz - 1, 4, 4);
+    //setup AA for lines
+    final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
 
+    g2.setColor(getColor("checkBoxBackgroundColor", null));
 
-    if (lh.getMenuItem().isSelected()) {
-      g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-      g.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
-      g.setPaint(Gray._30);
-      g.drawLine(4, 7, 7, 10);
-      g.drawLine(7, 10, sz, 2);
-      g.setPaint(Gray._170);
-      g.drawLine(4, 5, 7, 8);
-      g.drawLine(7, 8, sz, 0);
+    if (c.hasFocus()) {
+      g2.fillRoundRect(0, 0, w - 2, h - 2, 4, 4);
+      DarculaUIUtil.paintFocusRing(g, 1, 1, w - 2, h - 2);
+    } else {
+      g2.fillRoundRect(0, 0, w, h - 1 , 4, 4);
+
+      g2.setColor(UIManager.getColor("CheckBox.darcula.checkBoxBorderColor"));
+      g2.drawRoundRect(0, 0, w, h - 1, 4, 4);
     }
 
-    g.translate(-lr.getCheckRect().x-2, -lr.getCheckRect().y-2);
+    if (b.getModel().isSelected()) {
+      g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+      g2.setStroke(new BasicStroke(1 *2.0f, BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+      g2.setPaint(getCheckSignColor(b.isEnabled()));
+      g2.drawLine(4, 7, 6, 10);
+      g2.drawLine(6, 10, w - 3, 3);
+    }
+
+    g2.translate(-x, -y);
+    g.translate(-lr.getCheckRect().x-1, -lr.getCheckRect().y-1);
     config.restore();
-    g.setColor(foreground);
+  }
+
+  protected Color getCheckSignColor(boolean enabled) {
+    return enabled ? getColor("checkSignColor", Gray._170)
+            : getColor("checkSignColorDisabled", Gray._120);
   }
 }

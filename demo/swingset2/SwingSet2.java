@@ -181,13 +181,13 @@ public class SwingSet2 extends JPanel {
      */
     public SwingSet2(SwingSet2Applet applet, GraphicsConfiguration gc) {
 
-	// Use Apple Aqua L&F screen menu bar if available; set property before any frames created
-	try {
-		java.lang.System.setProperty("apple.laf.useScreenMenuBar", "true");
-	} catch (Exception e) {
-		// try the older menu bar property
-		java.lang.System.setProperty("com.apple.macos.useScreenMenuBar", "true");
-	}
+//	// Use Apple Aqua L&F screen menu bar if available; set property before any frames created
+//	try {
+//		java.lang.System.setProperty("apple.laf.useScreenMenuBar", "true");
+//	} catch (Exception e) {
+//		// try the older menu bar property
+//		java.lang.System.setProperty("com.apple.macos.useScreenMenuBar", "true");
+//	}
 
 	// Note that the applet may null if this is started as an application
 	this.applet = applet;
@@ -501,8 +501,11 @@ public class SwingSet2 extends JPanel {
                                            String mnemonic,
                                            String accessibleDescription,
                                            Action action) {
-        JRadioButtonMenuItem mi = (JRadioButtonMenuItem)menu.add(
-                new JRadioButtonMenuItem(getString(label)));
+    	// Use checkbox menu items just for UI testing
+//        JRadioButtonMenuItem mi = (JRadioButtonMenuItem)menu.add(
+//                new JRadioButtonMenuItem(getString(label)));
+		JCheckBoxMenuItem mi = (JCheckBoxMenuItem)menu.add(
+				new JCheckBoxMenuItem(getString(label)));
         toolTipMenuGroup.add(mi);
         mi.setMnemonic(getMnemonic(mnemonic));
         mi.getAccessibleContext().setAccessibleDescription(getString(

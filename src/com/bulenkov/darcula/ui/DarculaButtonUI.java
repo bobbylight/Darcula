@@ -45,19 +45,18 @@ public class DarculaButtonUI extends BasicButtonUI {
 
     AbstractButton b = (AbstractButton)c;
     Container parent = b.getParent();
+    Color prevColor = g.getColor();
 
     if (parent instanceof JToolBar) {
-      if (b.getModel().isRollover()) {
-        Color prevColor = g.getColor();
-        g.setColor(UIManager.getColor("ToolBar.Button.rolloverBackground"));
+      if (b.getModel().isPressed()) {
+        g.setColor(UIManager.getColor("ToolBar.Button.armedBackground"));
         g.fillRect(0, 0, c.getWidth(), c.getHeight());
         g.setColor(prevColor);
       }
-      else if (b.getModel().isPressed()) {
-          Color prevColor = g.getColor();
-          g.setColor(UIManager.getColor("ToolBar.Button.armedBackground"));
-          g.fillRect(0, 0, c.getWidth(), c.getHeight());
-          g.setColor(prevColor);
+      else if (b.getModel().isRollover() || b.isSelected()) {
+        g.setColor(UIManager.getColor("ToolBar.Button.rolloverBackground"));
+        g.fillRect(0, 0, c.getWidth(), c.getHeight());
+        g.setColor(prevColor);
       }
     }
 
@@ -130,13 +129,5 @@ public class DarculaButtonUI extends BasicButtonUI {
        c.setFont(c.getFont().deriveFont(Font.BOLD));
       }
     }
-  }
-
-  protected Color getButtonColor1() {
-    return UIManager.getColor("Button.darcula.color1");
-  }
-
-  protected Color getButtonColor2() {
-    return UIManager.getColor("Button.darcula.color2");
   }
 }

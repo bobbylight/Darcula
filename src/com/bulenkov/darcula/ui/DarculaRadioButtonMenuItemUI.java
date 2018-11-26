@@ -16,9 +16,8 @@
 
 package com.bulenkov.darcula.ui;
 
-import com.bulenkov.iconloader.util.ColorUtil;
-import com.bulenkov.iconloader.util.GraphicsConfig;
-import com.bulenkov.iconloader.util.Gray;
+import com.bulenkov.darcula.DarculaUIUtil;
+import com.bulenkov.iconloader.util.*;
 import sun.swing.MenuItemLayoutHelper;
 
 import javax.swing.*;
@@ -41,9 +40,8 @@ public class DarculaRadioButtonMenuItemUI extends DarculaMenuItemUIBase {
   @Override
   protected void paintCheckIcon(Graphics g2, MenuItemLayoutHelper lh, MenuItemLayoutHelper.LayoutResult lr, Color holdc, Color foreground) {
     Graphics2D g = (Graphics2D) g2;
-    final GraphicsConfig config = new GraphicsConfig(g);
-    g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_DEFAULT);
+    AbstractButton b = lh.getMenuItem();
+    final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
 
     g.translate(lr.getCheckRect().x+1, lr.getCheckRect().y+1);
 
@@ -57,28 +55,32 @@ public class DarculaRadioButtonMenuItemUI extends DarculaMenuItemUIBase {
     g.translate(x, y);
 
     //setup AA for lines
-    Color bg = lh.getMenuItem().getBackground();
-    g.setPaint(new GradientPaint(0, 0, ColorUtil.shift(bg, 1.5),
-        0, 16, ColorUtil.shift(bg, 1.2)));
+    final boolean focus = b.hasFocus();
+    g.setColor(UIManager.getColor("CheckBox.darcula.checkBoxBackgroundColor"));
+    if (focus) {
+      g.fillOval(0, 1, w, h);
+    } else {
+      g.fillOval(0, 1, w - 1, h - 1);
+    }
 
-    g.fillOval(0, 1, w - 1, h - 1);
+    if (focus) {
+      if (UIUtil.isRetina()) {
+        DarculaUIUtil.paintFocusOval(g, 1, 2, w - 2, h - 2);
+      } else {
+        DarculaUIUtil.paintFocusOval(g, 0, 1, w, h);
+      }
+    } else {
+      g.setColor(UIManager.getColor("CheckBox.darcula.checkBoxBorderColor"));
+      g.drawOval(0, 1, w - 1, h - 1);
+    }
 
-        g.setPaint(new GradientPaint(w / 2, 1, Gray._160.withAlpha(90), w / 2, h, Gray._100.withAlpha(90)));
-        g.drawOval(0, 2, w - 1, h - 1);
-
-        g.setPaint(Gray._40.withAlpha(200));
-    g.drawOval(0, 1, w - 1, h - 1);
-
-    if (lh.getMenuItem().isSelected()) {
-      final boolean enabled = lh.getMenuItem().isEnabled();
-      g.setColor(UIManager.getColor(enabled ? "RadioButton.darcula.selectionEnabledShadowColor" : "RadioButton.darcula.selectionDisabledShadowColor"));
-      g.fillOval((w - rad)/2 , h/2 , rad, rad);
-      g.setColor(UIManager.getColor(enabled ? "RadioButton.darcula.selectionEnabledColor" : "RadioButton.darcula.selectionDisabledColor"));
-      g.fillOval((w - rad)/2 , h/2 - 1, rad, rad);
+    if (b.isSelected()) {
+      final boolean enabled = b.isEnabled();
+      g.setColor(UIManager.getColor(enabled ? "RadioButton.darcula.selectionEnabledColor" : "RadioButton.darcula.selectionDisabledColor")); //Gray._170 : Gray._120);
+      g.fillOval(w/2 - rad/2, h/2 - 1, rad, rad);
     }
     config.restore();
     g.translate(-x, -y);
-
 
     g.translate(-lr.getCheckRect().x-1, -lr.getCheckRect().y-1);
     config.restore();

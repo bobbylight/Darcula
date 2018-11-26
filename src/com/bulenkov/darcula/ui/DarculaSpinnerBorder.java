@@ -56,10 +56,6 @@ public class DarculaSpinnerBorder implements Border, UIResource {
       final Area blueRect = new Area(new Rectangle(off, y1, 22, height1));
       rect.intersect(blueRect);
       ((Graphics2D)g).fill(rect);
-      if (UIUtil.isUnderDarcula()) {
-        g.setColor(Gray._100);
-        g.drawLine(off, y1, off, height1 + 2);
-      }
     }
 
     if (!c.isEnabled()) {
