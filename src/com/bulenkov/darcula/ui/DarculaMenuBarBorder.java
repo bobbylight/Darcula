@@ -28,18 +28,16 @@ public class DarculaMenuBarBorder implements Border, UIResource {
   @Override
   public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
     g.translate(x, y);
-    w--;h--;
-    g.setColor(UIManager.getColor("MenuBar.darcula.borderColor"));
-    g.drawLine(0, h, w, h);
+    w--;
     h--;
-    g.setColor(UIManager.getColor("MenuBar.darcula.borderShadowColor"));
+    g.setColor(UIManager.getColor("MenuBar.darcula.borderColor"));
     g.drawLine(0, h, w, h);
     g.translate(-x, -y);
   }
 
   @Override
   public Insets getBorderInsets(Component c) {
-    return new InsetsUIResource(0, 0, 2, 0);
+    return new InsetsUIResource(0, 0, 1, 0);
   }
 
   @Override

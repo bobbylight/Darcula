@@ -23,6 +23,7 @@ import com.bulenkov.iconloader.util.StringUtil;
 import com.bulenkov.iconloader.util.SystemInfo;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.IconUIResource;
@@ -106,6 +107,17 @@ public final class DarculaLaf extends BasicLookAndFeel {
       defaults.put("OptionPane.warningIcon", new IconUIResource(IconLoader.getIcon("/com/bulenkov/darcula/icons/option_pane_warning.png")));
       defaults.put("OptionPane.errorIcon", new IconUIResource(IconLoader.getIcon("/com/bulenkov/darcula/icons/option_pane_error.png")));
       defaults.put("TitledBorder.border", new BorderUIResource.LineBorderUIResource(new ColorUIResource(0x6b, 0x6b, 0x6b)));
+
+      // Remove "focused cell" border around selected cell/tree node/list item.
+      Border empty1PixelBorder = new BorderUIResource.EmptyBorderUIResource(1, 1, 1, 1);
+      defaults.put("Table.focusCellHighlightBorder", empty1PixelBorder);
+      defaults.put("Table.cellNoFocusBorder", empty1PixelBorder);
+      defaults.put("List.focusCellHighlightBorder", empty1PixelBorder);
+      defaults.put("List.cellNoFocusBorder", empty1PixelBorder);
+
+      // Clear selection color for tree nodes, preventing focus rectangle from displaying
+      defaults.put("Tree.selectionBorderColor", null);
+
       possiblyUpdateFonts(defaults);
       return defaults;
     }
