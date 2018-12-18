@@ -457,7 +457,7 @@ public final class DarculaLaf extends BasicLookAndFeel {
       Object mainFont = new UIDefaults.ProxyLazyValue(
               "javax.swing.plaf.FontUIResource",
               null,
-              new Object[]{font, Integer.valueOf(Font.PLAIN), Integer.valueOf(12)});
+              new Object[]{font, Font.PLAIN, 12});
 
       Object[] fonts = {
               "Button.font", mainFont,
