@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$/../rjava/RText/gradle.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_ar.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_de.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_es.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_fr.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_hu.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_in.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_it.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_nl.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_pl.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_pt_BR.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_ru.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_tr.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_zh_CN.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/AboutDialog_zh_TW.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/OptionsDialog.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/RText.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_ar.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_de.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_es.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_fr.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_hu.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_in.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_it.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_ja.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_ko.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_nl.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_pl.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_pt_BR.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_ru.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_tr.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_zh_CN.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/rtext/actions/Actions_zh_TW.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../rjava/RText/src/main/resources/org/fife/ui/rsyntaxtextarea/OptionPanel.properties" charset="UTF-8" />
+  </component>
 </project>
-

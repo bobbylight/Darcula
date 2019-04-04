@@ -41,8 +41,8 @@ public class DarculaTableHeaderUI extends BasicTableHeaderUI {
   public void paint(Graphics g2, JComponent c) {
     final Graphics2D g = (Graphics2D)g2;
     final GraphicsConfig config = new GraphicsConfig(g);
-    final Color bg = c.getBackground();
-    g.setPaint(new GradientPaint(0, 0, ColorUtil.shift(bg, 1.4), 0, c.getHeight(), ColorUtil.shift(bg, 0.9)));
+    final Color bg = UIManager.getColor("TabbedPane.highlight");//c.getBackground();
+    g.setPaint(bg);//new GradientPaint(0, 0, ColorUtil.shift(bg, 1.4), 0, c.getHeight(), ColorUtil.shift(bg, 0.9)));
     final int h = c.getHeight();
     final int w = c.getWidth();
     g.fillRect(0,0, w, h);
@@ -53,16 +53,13 @@ public class DarculaTableHeaderUI extends BasicTableHeaderUI {
     final Enumeration<TableColumn> columns = ((JTableHeader)c).getColumnModel().getColumns();
 
     final Color lineColor = ColorUtil.shift(bg, 0.7);
-    final Color shadow = Gray._255.withAlpha(30);
     int offset = 0;
     while (columns.hasMoreElements()) {
       final TableColumn column = columns.nextElement();
       if (columns.hasMoreElements() && column.getWidth() > 0) {
         offset += column.getWidth();
         g.setColor(lineColor);
-        g.drawLine(offset-1, 1, offset-1, h-3);
-        g.setColor(shadow);
-        g.drawLine(offset, 1, offset, h-3);
+        g.drawLine(offset - 1, 1, offset - 1, h-3);
       }
     }
 
