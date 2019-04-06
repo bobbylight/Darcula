@@ -17,7 +17,6 @@ package com.bulenkov.darcula;
 
 import com.bulenkov.iconloader.util.ColorUtil;
 import com.bulenkov.iconloader.util.GraphicsConfig;
-import com.bulenkov.iconloader.util.Gray;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -41,7 +40,7 @@ public class DarculaTableHeaderUI extends BasicTableHeaderUI {
   public void paint(Graphics g2, JComponent c) {
     final Graphics2D g = (Graphics2D)g2;
     final GraphicsConfig config = new GraphicsConfig(g);
-    final Color bg = UIManager.getColor("TabbedPane.highlight");//c.getBackground();
+    final Color bg = c.getBackground();
     g.setPaint(bg);//new GradientPaint(0, 0, ColorUtil.shift(bg, 1.4), 0, c.getHeight(), ColorUtil.shift(bg, 0.9)));
     final int h = c.getHeight();
     final int w = c.getWidth();
