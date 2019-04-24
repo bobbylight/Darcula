@@ -24,7 +24,6 @@ Coming soon:
 * Text component background darkens slightly when focused
 * Application font matches desktop's default (on OS X and Linux)
 * Nicer-looking split pane
-* Custom-drawn window decorations (if I find the time/motivation)
 
 
 ![Screenshot](./images/darcula-window-decorations.png)
