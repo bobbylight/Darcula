@@ -112,7 +112,7 @@ public class DarculaRootPaneUI extends BasicRootPaneUI {
     if (parent instanceof Window) {
       myWindow = (Window)parent;
     }
-    else {
+    else if (parent != null) {
       myWindow = SwingUtilities.getWindowAncestor(parent);
     }
 

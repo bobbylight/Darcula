@@ -16,6 +16,7 @@
 
 package com.bulenkov.darcula;
 
+import com.bulenkov.darcula.util.ImageUtil;
 import com.bulenkov.iconloader.IconLoader;
 import com.bulenkov.iconloader.util.ColorUtil;
 import com.bulenkov.iconloader.util.EmptyIcon;
@@ -39,6 +40,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -142,7 +144,7 @@ public final class DarculaLaf extends BasicLookAndFeel {
     try {
 
       InputStream is = DarculaLaf.class.getResourceAsStream("darcula.css");
-      Reader r = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+      Reader r = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
       defaultStyles.loadRules(r, null);
       r.close();
 
@@ -459,11 +461,17 @@ public final class DarculaLaf extends BasicLookAndFeel {
               null,
               new Object[]{font, Font.PLAIN, 12});
 
+        Object boldedMainFont = new UIDefaults.ProxyLazyValue(
+                "javax.swing.plaf.FontUIResource",
+                null,
+                new Object[]{font, Font.BOLD, 12});
+
       Object[] fonts = {
               "Button.font", mainFont,
               "CheckBox.font", mainFont,
               "CheckBoxMenuItem.font", mainFont,
               "ComboBox.font", mainFont,
+              "InternalFrame.titleFont", boldedMainFont, // Used with custom window decorations
               "Label.font", mainFont,
               "List.font", mainFont,
               "Menu.font", mainFont,
@@ -494,10 +502,13 @@ public final class DarculaLaf extends BasicLookAndFeel {
       };
       table.putDefaults(fonts);
 
+      Object[] icons = {
+              "InternalFrame.closeIcon", ImageUtil.getCloseIcon(16),
+              "InternalFrame.iconifyIcon", ImageUtil.getMinimizeIcon(16),
+              "InternalFrame.minimizeIcon", ImageUtil.getRestoreIcon(16),
+              "InternalFrame.maximizeIcon", ImageUtil.getMaximizeIcon(16)
+      };
+      table.putDefaults(icons);
     }
-//    String[] props = { "text", "menuText", "textInactiveText" };
-//    for (String prop : props) {
-//      System.out.println(prop + " == " + table.get(prop));
-//    }
   }
 }

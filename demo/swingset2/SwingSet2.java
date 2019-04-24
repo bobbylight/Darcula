@@ -181,6 +181,8 @@ public class SwingSet2 extends JPanel {
      */
     public SwingSet2(SwingSet2Applet applet, GraphicsConfiguration gc) {
 
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
 //	// Use Apple Aqua L&F screen menu bar if available; set property before any frames created
 //	try {
 //		java.lang.System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -761,17 +763,17 @@ public class SwingSet2 extends JPanel {
      * Show the spash screen while the rest of the demo loads
      */
     public void createSplashScreen() {
-	splashLabel = new JLabel(createImageIcon("Splash.jpg", "Splash.accessible_description"));
-	
-	if(!isApplet()) {
-	    splashScreen = new JWindow(getFrame());
-	    splashScreen.getContentPane().add(splashLabel);
-	    splashScreen.pack();
-	    Rectangle screenRect = getFrame().getGraphicsConfiguration().getBounds();
-	    splashScreen.setLocation(
-         screenRect.x + screenRect.width/2 - splashScreen.getSize().width/2,
-		 screenRect.y + screenRect.height/2 - splashScreen.getSize().height/2);
-	} 
+//	splashLabel = new JLabel(createImageIcon("Splash.jpg", "Splash.accessible_description"));
+//
+//	if(!isApplet()) {
+//	    splashScreen = new JWindow(getFrame());
+//	    splashScreen.getContentPane().add(splashLabel);
+//	    splashScreen.pack();
+//	    Rectangle screenRect = getFrame().getGraphicsConfiguration().getBounds();
+//	    splashScreen.setLocation(
+//         screenRect.x + screenRect.width/2 - splashScreen.getSize().width/2,
+//		 screenRect.y + screenRect.height/2 - splashScreen.getSize().height/2);
+//	}
     }
 
     public void showSplashScreen() {
@@ -788,7 +790,7 @@ public class SwingSet2 extends JPanel {
      * pop down the spash screen
      */
     public void hideSplash() {
-	if(!isApplet()) {
+	if(!isApplet() && splashScreen != null) {
 	    splashScreen.setVisible(false);
 	    splashScreen = null;
 	    splashLabel = null;
