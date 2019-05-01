@@ -55,9 +55,12 @@ public class DarculaTitlePane extends JComponent {
   private JRootPane rootPane;
   private int state;
   private DarculaRootPaneUI rootPaneUI;
+  private int buttonAreaWidth;
 
   private Color activeBackground = null;
   private Color activeForeground = null;
+
+  private static final int TITLE_PADDING = 5;
 
   public DarculaTitlePane(JRootPane root, DarculaRootPaneUI ui) {
     this.rootPane = root;
@@ -161,13 +164,13 @@ public class DarculaTitlePane extends JComponent {
   }
 
   private void determineColors() {
+
     switch (getWindowDecorationStyle()) {
       case JRootPane.FRAME:
       case JRootPane.PLAIN_DIALOG:
       case JRootPane.INFORMATION_DIALOG:
       default:
-        activeBackground = UIManager.getColor("darcula.background");
-        activeForeground = UIManager.getColor("OptionPane.foreground");
+        // Take defaults below
         break;
       case JRootPane.ERROR_DIALOG:
         activeBackground = UIManager.getColor("OptionPane.errorDialog.titlePane.background");
@@ -183,6 +186,13 @@ public class DarculaTitlePane extends JComponent {
         activeBackground = UIManager.getColor("OptionPane.warningDialog.titlePane.background");
         activeForeground = UIManager.getColor("OptionPane.warningDialog.titlePane.foreground");
         break;
+    }
+
+    if (activeBackground == null) {
+      activeBackground = UIManager.getColor("darcula.background");
+    }
+    if (activeForeground == null) {
+      activeForeground = UIManager.getColor("OptionPane.foreground");
     }
   }
 
@@ -421,9 +431,11 @@ public class DarculaTitlePane extends JComponent {
   }
 
   public void paintComponent(Graphics g) {
+
     if (getFrame() != null) {
       setState(getFrame().getExtendedState());
     }
+
     JRootPane rootPane = getRootPane();
     Window window = getWindow();
     boolean leftToRight = (window == null) ?
@@ -446,7 +458,7 @@ public class DarculaTitlePane extends JComponent {
 
     String theTitle = getTitle();
     if (theTitle != null) {
-      FontMetrics fm = SwingUtilities2.getFontMetrics(rootPane, g);
+      FontMetrics fm = rootPane.getFontMetrics(g.getFont());
 
       g.setColor(foreground);
 
@@ -470,7 +482,7 @@ public class DarculaTitlePane extends JComponent {
         titleW = xOffset - rect.x - rect.width - 4;
         theTitle = SwingUtilities2.clipStringIfNecessary(
           rootPane, fm, theTitle, titleW);
-        xOffset -= SwingUtilities2.stringWidth(rootPane, fm, theTitle);
+        xOffset -= SwingUtilities.computeStringWidth(fm, theTitle);
       }
       int titleLength = SwingUtilities2.stringWidth(rootPane, fm, theTitle);
       SwingUtilities2.drawString(rootPane, g, theTitle, xOffset, yOffset);
@@ -583,7 +595,79 @@ public class DarculaTitlePane extends JComponent {
       return Math.max(fontHeight, iconHeight);
     }
 
+    private void layoutContainerOsX(Container c) {
+
+      boolean leftToRight = (window == null) ?
+              getRootPane().getComponentOrientation().isLeftToRight() :
+              window.getComponentOrientation().isLeftToRight();
+      leftToRight = !leftToRight; // On OS X, window decorations are on the left by default
+
+      int w = getWidth();
+      int x;
+      int y = 0; // our buttons touch the top of the window
+      int spacing;
+      int buttonHeight;
+      int buttonWidth;
+      int buttonCount = 0;
+
+      if (closeButton != null && closeButton.getIcon() != null) {
+        buttonHeight = closeButton.getIcon().getIconHeight();
+        buttonWidth = closeButton.getIcon().getIconWidth();
+      }
+      else {
+        buttonHeight = IMAGE_HEIGHT;
+        buttonWidth = IMAGE_WIDTH;
+      }
+      buttonWidth += 16;
+      buttonHeight += 8;
+
+      x = leftToRight ? w : 0;
+
+      spacing = 5;
+      x = leftToRight ? spacing : w - IMAGE_WIDTH - spacing;
+      if (menuBar != null) {
+        int menuBarY = (getHeight() - menuBar.getPreferredSize().height) / 2;
+        menuBar.setBounds(x, menuBarY, IMAGE_WIDTH, IMAGE_HEIGHT);
+      }
+
+      x = leftToRight ? w - buttonWidth : 0;
+      if (closeButton != null) {
+        closeButton.setBounds(x, y, buttonWidth, buttonHeight);
+        closeButton.repaint();
+        buttonCount++;
+      }
+
+      if (!leftToRight) x += buttonWidth;
+      spacing = 2;
+
+      if (getWindowDecorationStyle() == JRootPane.FRAME) {
+        if (Toolkit.getDefaultToolkit().isFrameStateSupported(
+                Frame.MAXIMIZED_BOTH)) {
+          if (iconifyButton.getParent() != null) {
+            x += leftToRight ? -spacing - buttonWidth : spacing;
+            iconifyButton.setBounds(x, y, buttonWidth, buttonHeight);
+            if (!leftToRight) {
+              x += buttonWidth;
+            }
+            buttonCount++;
+          }
+        }
+
+        if (toggleButton != null && toggleButton.getParent() != null) {
+          x += leftToRight ? -spacing - buttonWidth : spacing;
+          toggleButton.setBounds(x, y, buttonWidth, buttonHeight);
+          if (!leftToRight) {
+            x += buttonWidth;
+          }
+          buttonCount++;
+        }
+      }
+
+      buttonAreaWidth = buttonCount * buttonWidth;
+    }
+
     public void layoutContainer(Container c) {
+
       boolean leftToRight = (window == null) ?
                             getRootPane().getComponentOrientation().isLeftToRight() :
                             window.getComponentOrientation().isLeftToRight();
@@ -605,8 +689,6 @@ public class DarculaTitlePane extends JComponent {
       }
       buttonWidth += 16;
       buttonHeight += 8;
-
-
 
       x = leftToRight ? w : 0;
 

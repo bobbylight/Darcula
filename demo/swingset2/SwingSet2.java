@@ -710,7 +710,8 @@ public class SwingSet2 extends JPanel {
 	if(!isApplet() && getFrame() != null) {
 	    // put swingset in a frame and show it
 	    JFrame f = getFrame();
-	    f.setTitle(getString("Frame.title"));
+	    f.setTitle("This is a very, very long title that will produce elipsis sometimes and that sucks - " +
+				getString("Frame.title"));
 	    f.getContentPane().add(this, BorderLayout.CENTER);
 	    f.pack();
 
