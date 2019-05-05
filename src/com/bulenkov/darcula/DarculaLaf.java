@@ -17,14 +17,13 @@
 package com.bulenkov.darcula;
 
 import com.bulenkov.iconloader.IconLoader;
-import com.bulenkov.iconloader.util.ColorUtil;
-import com.bulenkov.iconloader.util.EmptyIcon;
-import com.bulenkov.iconloader.util.StringUtil;
-import com.bulenkov.iconloader.util.SystemInfo;
+import com.bulenkov.iconloader.util.*;
+
 import sun.awt.AppContext;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.FontUIResource;
 import javax.swing.plaf.IconUIResource;
 import javax.swing.plaf.InsetsUIResource;
 import javax.swing.plaf.basic.BasicLookAndFeel;
@@ -32,6 +31,11 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
+
+import org.intellij.lang.annotations.JdkConstants;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -39,7 +43,9 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 /**
@@ -57,6 +63,7 @@ public final class DarculaLaf extends BasicLookAndFeel {
         final String name = UIManager.getSystemLookAndFeelClassName();
         base = (BasicLookAndFeel)Class.forName(name).newInstance();
       }
+      UIUtil.getLabelFont();
     }
     catch (Exception ignore) {
       log(ignore);
@@ -78,6 +85,87 @@ public final class DarculaLaf extends BasicLookAndFeel {
   private static void log(Throwable e) {
     //everything is gonna be alright
     //e.printStackTrace();
+  }
+  
+  private static final boolean isMacOSYosemite =
+          SystemInfo.compareVersionNumbers(SystemInfo.OS_VERSION, "10.9") == 1;
+  
+  private static final boolean isMacOSElCapitan =
+          isMacOSYosemite && !SystemInfo.OS_VERSION.startsWith("10.10");
+
+  public static boolean isDialogFont(@NotNull Font font) {
+    return Font.DIALOG.equals(font.getFamily(Locale.US));
+  }
+  
+  @NotNull
+  private static FontUIResource getFont(String yosemite, int size, @JdkConstants.FontStyle int style) {
+    if (isMacOSElCapitan) {
+      // Text family should be used for relatively small sizes (<20pt), don't change to Display
+      // see more about SF https://medium.com/@mach/the-secret-of-san-francisco-fonts-4b5295d9a745#.2ndr50z2v
+      Font font = new Font(".SF NS Text", style, size);
+      if (!isDialogFont(font)) {
+        return new FontUIResource(font);
+      }
+    } else if (SystemInfo.isWindows) {
+      Font font = (Font) Toolkit.getDefaultToolkit().getDesktopProperty("win.messagebox.font");
+      if (!isDialogFont(font)) {
+        return new FontUIResource(font);
+      }
+    }
+    return new FontUIResource(yosemite, style, size);
+  }
+
+  @NonNls private static final String[] ourPatchableFontResources = {"Button.font", "ToggleButton.font", "RadioButton.font",
+          "CheckBox.font", "ColorChooser.font", "ComboBox.font", "Label.font", "List.font", "MenuBar.font", "MenuItem.font",
+          "MenuItem.acceleratorFont", "RadioButtonMenuItem.font", "CheckBoxMenuItem.font", "Menu.font", "PopupMenu.font", "OptionPane.font",
+          "Panel.font", "ProgressBar.font", "ScrollPane.font", "Viewport.font", "TabbedPane.font", "Table.font", "TableHeader.font",
+          "TextField.font", "FormattedTextField.font", "Spinner.font", "PasswordField.font", "TextArea.font", "TextPane.font", "EditorPane.font",
+          "TitledBorder.font", "ToolBar.font", "ToolTip.font", "Tree.font"};
+
+  @SuppressWarnings({"HardCodedStringLiteral"})
+  public static void initFontDefaults(@NotNull UIDefaults defaults, @NotNull FontUIResource uiFont) {
+    defaults.put("Tree.ancestorInputMap", null);
+    FontUIResource textFont = new FontUIResource(uiFont);
+    FontUIResource monoFont = new FontUIResource("Monospaced", Font.PLAIN, uiFont.getSize());
+
+    for (String fontResource : ourPatchableFontResources) {
+      defaults.put(fontResource, uiFont);
+    }
+
+    if (!SystemInfo.isMac) {
+      defaults.put("PasswordField.font", monoFont);
+    }
+    defaults.put("TextArea.font", monoFont);
+    defaults.put("TextPane.font", textFont);
+    defaults.put("EditorPane.font", textFont);
+  }
+  
+  public static void installMacOSXFonts(UIDefaults defaults) {
+    final String face = ".Helvetica Neue DeskInterface";
+    final FontUIResource uiFont = getFont(face, 13, Font.PLAIN);
+    initFontDefaults(defaults, uiFont);
+    for (Object key : new HashSet<>(defaults.keySet())) {
+      Object value = defaults.get(key);
+      if (value instanceof FontUIResource) {
+        FontUIResource font = (FontUIResource)value;
+        if (font.getFamily().equals("Lucida Grande") || font.getFamily().equals("Serif")) {
+          if (!key.toString().contains("Menu")) {
+            defaults.put(key, getFont(face, font.getSize(), font.getStyle()));
+          }
+        }
+      }
+    }
+
+    FontUIResource uiFont11 = getFont(face, 11, Font.PLAIN);
+    defaults.put("TableHeader.font", uiFont11);
+
+    FontUIResource buttonFont = getFont("HelveticaNeue-Medium", 13, Font.PLAIN);
+    defaults.put("Button.font", buttonFont);
+    Font menuFont = getFont("Lucida Grande", 14, Font.PLAIN);
+    defaults.put("Menu.font", menuFont);
+    defaults.put("MenuItem.font", menuFont);
+    defaults.put("MenuItem.acceleratorFont", menuFont);
+    defaults.put("PasswordField.font", defaults.getFont("TextField.font"));
   }
 
   @Override
@@ -107,6 +195,9 @@ public final class DarculaLaf extends BasicLookAndFeel {
       if (SystemInfo.isMac && !"true".equalsIgnoreCase(System.getProperty("apple.laf.useScreenMenuBar", "false"))) {
         defaults.put("MenuBarUI", "com.bulenkov.darcula.ui.DarculaMenuBarUI");
         defaults.put("MenuUI", "javax.swing.plaf.basic.BasicMenuUI");
+      }
+      if (SystemInfo.isWindows || isMacOSYosemite) {
+        installMacOSXFonts(defaults);
       }
       return defaults;
     }
