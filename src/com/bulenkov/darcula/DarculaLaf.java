@@ -16,7 +16,6 @@
 
 package com.bulenkov.darcula;
 
-import com.bulenkov.darcula.util.ImageUtil;
 import com.bulenkov.iconloader.IconLoader;
 import com.bulenkov.iconloader.util.ColorUtil;
 import com.bulenkov.iconloader.util.EmptyIcon;
@@ -27,6 +26,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.FontUIResource;
 import javax.swing.plaf.IconUIResource;
 import javax.swing.plaf.InsetsUIResource;
 import javax.swing.plaf.basic.BasicLookAndFeel;
@@ -34,6 +34,11 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
+
+import org.intellij.lang.annotations.JdkConstants;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 import java.awt.Font;
 import java.awt.event.InputEvent;
@@ -41,9 +46,10 @@ import java.awt.event.KeyEvent;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 /**
@@ -83,6 +89,87 @@ public final class DarculaLaf extends BasicLookAndFeel {
     //everything is gonna be alright
     //e.printStackTrace();
   }
+  
+  private static final boolean isMacOSYosemite =
+          SystemInfo.compareVersionNumbers(SystemInfo.OS_VERSION, "10.9") == 1;
+  
+  private static final boolean isMacOSElCapitan =
+          isMacOSYosemite && !SystemInfo.OS_VERSION.startsWith("10.10");
+
+  public static boolean isDialogFont(@NotNull Font font) {
+    return Font.DIALOG.equals(font.getFamily(Locale.US));
+  }
+  
+  @NotNull
+  private static FontUIResource getFont(String yosemite, int size, @JdkConstants.FontStyle int style) {
+    if (isMacOSElCapitan) {
+      // Text family should be used for relatively small sizes (<20pt), don't change to Display
+      // see more about SF https://medium.com/@mach/the-secret-of-san-francisco-fonts-4b5295d9a745#.2ndr50z2v
+      Font font = new Font(".SF NS Text", style, size);
+      if (!isDialogFont(font)) {
+        return new FontUIResource(font);
+      }
+    } else if (SystemInfo.isWindows) {
+      Font font = (Font) Toolkit.getDefaultToolkit().getDesktopProperty("win.messagebox.font");
+      if (!isDialogFont(font)) {
+        return new FontUIResource(font);
+      }
+    }
+    return new FontUIResource(yosemite, style, size);
+  }
+
+  @NonNls private static final String[] ourPatchableFontResources = {"Button.font", "ToggleButton.font", "RadioButton.font",
+          "CheckBox.font", "ColorChooser.font", "ComboBox.font", "Label.font", "List.font", "MenuBar.font", "MenuItem.font",
+          "MenuItem.acceleratorFont", "RadioButtonMenuItem.font", "CheckBoxMenuItem.font", "Menu.font", "PopupMenu.font", "OptionPane.font",
+          "Panel.font", "ProgressBar.font", "ScrollPane.font", "Viewport.font", "TabbedPane.font", "Table.font", "TableHeader.font",
+          "TextField.font", "FormattedTextField.font", "Spinner.font", "PasswordField.font", "TextArea.font", "TextPane.font", "EditorPane.font",
+          "TitledBorder.font", "ToolBar.font", "ToolTip.font", "Tree.font"};
+
+  @SuppressWarnings({"HardCodedStringLiteral"})
+  public static void initFontDefaults(@NotNull UIDefaults defaults, @NotNull FontUIResource uiFont) {
+    defaults.put("Tree.ancestorInputMap", null);
+    FontUIResource textFont = new FontUIResource(uiFont);
+    FontUIResource monoFont = new FontUIResource("Monospaced", Font.PLAIN, uiFont.getSize());
+
+    for (String fontResource : ourPatchableFontResources) {
+      defaults.put(fontResource, uiFont);
+    }
+
+    if (!SystemInfo.isMac) {
+      defaults.put("PasswordField.font", monoFont);
+    }
+    defaults.put("TextArea.font", monoFont);
+    defaults.put("TextPane.font", textFont);
+    defaults.put("EditorPane.font", textFont);
+  }
+  
+  public static void installMacOSXFonts(UIDefaults defaults) {
+    final String face = ".Helvetica Neue DeskInterface";
+    final FontUIResource uiFont = getFont(face, 13, Font.PLAIN);
+    initFontDefaults(defaults, uiFont);
+    for (Object key : new HashSet<>(defaults.keySet())) {
+      Object value = defaults.get(key);
+      if (value instanceof FontUIResource) {
+        FontUIResource font = (FontUIResource)value;
+        if (font.getFamily().equals("Lucida Grande") || font.getFamily().equals("Serif")) {
+          if (!key.toString().contains("Menu")) {
+            defaults.put(key, getFont(face, font.getSize(), font.getStyle()));
+          }
+        }
+      }
+    }
+
+    FontUIResource uiFont11 = getFont(face, 11, Font.PLAIN);
+    defaults.put("TableHeader.font", uiFont11);
+
+    FontUIResource buttonFont = getFont("HelveticaNeue-Medium", 13, Font.PLAIN);
+    defaults.put("Button.font", buttonFont);
+    Font menuFont = getFont("Lucida Grande", 14, Font.PLAIN);
+    defaults.put("Menu.font", menuFont);
+    defaults.put("MenuItem.font", menuFont);
+    defaults.put("MenuItem.acceleratorFont", menuFont);
+    defaults.put("PasswordField.font", defaults.getFont("TextField.font"));
+  }
 
   @Override
   public UIDefaults getDefaults() {
@@ -120,7 +207,9 @@ public final class DarculaLaf extends BasicLookAndFeel {
       // Clear selection color for tree nodes, preventing focus rectangle from displaying
       defaults.put("Tree.selectionBorderColor", null);
 
-      possiblyUpdateFonts(defaults);
+      if (SystemInfo.isWindows || isMacOSYosemite) {
+        installMacOSXFonts(defaults);
+      }
       return defaults;
     }
     catch (Exception ignore) {
@@ -416,99 +505,5 @@ public final class DarculaLaf extends BasicLookAndFeel {
     inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK | InputEvent.CTRL_DOWN_MASK), copyActionKey);
     inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_MASK | InputEvent.CTRL_DOWN_MASK), pasteActionKey);
     inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK | InputEvent.CTRL_DOWN_MASK), DefaultEditorKit.cutAction);
-  }
-
-  private static String getSystemFont() {
-
-    List<String> availableFonts = Arrays.asList(GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames());
-    String[] possibilities = null;
-
-    String os = System.getProperty("os.name").toLowerCase();
-    if (os.contains("windows")) {
-      possibilities = new String[] { "Segoe UI", "Tahoma", "Dialog" };
-    }
-//    else if (os.contains("mac")) {
-//      possibilities = new String[] { "San Francisco", "Helvetica Neue", "Lucida Grande" };
-//    }
-
-    if (possibilities != null) {
-      for (String possibility : possibilities) {
-        if (availableFonts.contains(possibility)) {
-          return possibility;
-        }
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Updates some components to use Tahoma as their font.  This is because
-   * Windows Look and Feel does not set Tahoma for all components that use
-   * it, even as of 1.5.  Note that we only do this for the English locale,
-   * as some locales, such as Japanese, don't use Tahoma (as it does not
-   * support the language's characters).
-   *
-   * @param table The table in which to set the font values.
-   */
-  public static void possiblyUpdateFonts(UIDefaults table) {
-
-    String font = getSystemFont();
-
-    if (font != null) {
-
-      Object mainFont = new UIDefaults.ProxyLazyValue(
-              "javax.swing.plaf.FontUIResource",
-              null,
-              new Object[]{font, Font.PLAIN, 12});
-
-        Object boldedMainFont = new UIDefaults.ProxyLazyValue(
-                "javax.swing.plaf.FontUIResource",
-                null,
-                new Object[]{font, Font.BOLD, 12});
-
-      Object[] fonts = {
-              "Button.font", mainFont,
-              "CheckBox.font", mainFont,
-              "CheckBoxMenuItem.font", mainFont,
-              "ComboBox.font", mainFont,
-              "InternalFrame.titleFont", boldedMainFont, // Used with custom window decorations
-              "Label.font", mainFont,
-              "List.font", mainFont,
-              "Menu.font", mainFont,
-              "MenuBar.font", mainFont,
-              "MenuItem.font", mainFont,
-              "OptionPane.font", mainFont,
-              "OptionPane.messageFont", mainFont,
-              "OptionPane.buttonFont", mainFont,
-              "Panel.font", mainFont,
-              "PopupMenu.font", mainFont,
-              "RadioButton.font", mainFont,
-              "RadioButtonMenuItem.font", mainFont,
-              "ScrollPane.font", mainFont,
-              "Spinner.font", mainFont,
-              "TabbedPane.font", mainFont,
-              "Table.font", mainFont,
-              "TableHeader.font", mainFont,
-              "TitledBorder.font", mainFont,
-              "ToggleButton.font", mainFont,
-              "ToolBar.font", mainFont,
-              "ToolTip.font", mainFont,
-              "Tree.font", mainFont,
-              "Viewport.font", mainFont,
-              "EditorPane.font", mainFont,
-              "TextArea.font", mainFont,
-              "TextField.font", mainFont,
-              "TextPane.font", mainFont,
-      };
-      table.putDefaults(fonts);
-
-      Object[] icons = {
-              "InternalFrame.closeIcon", ImageUtil.getCloseIcon(16),
-              "InternalFrame.iconifyIcon", ImageUtil.getMinimizeIcon(16),
-              "InternalFrame.minimizeIcon", ImageUtil.getRestoreIcon(16),
-              "InternalFrame.maximizeIcon", ImageUtil.getMaximizeIcon(16)
-      };
-      table.putDefaults(icons);
-    }
   }
 }
