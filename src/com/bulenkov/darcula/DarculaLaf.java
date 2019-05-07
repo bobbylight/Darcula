@@ -21,6 +21,7 @@ import com.bulenkov.iconloader.util.ColorUtil;
 import com.bulenkov.iconloader.util.EmptyIcon;
 import com.bulenkov.iconloader.util.StringUtil;
 import com.bulenkov.iconloader.util.SystemInfo;
+import com.bulenkov.iconloader.util.UIUtil;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -67,6 +68,7 @@ public final class DarculaLaf extends BasicLookAndFeel {
         final String name = UIManager.getSystemLookAndFeelClassName();
         base = (BasicLookAndFeel)Class.forName(name).newInstance();
       }
+      UIUtil.initSystemFontData();
     }
     catch (Exception ignore) {
       log(ignore);
