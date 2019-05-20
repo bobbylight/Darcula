@@ -93,7 +93,7 @@ public final class DarculaLaf extends BasicLookAndFeel {
   }
   
   private static final boolean isMacOSYosemite =
-          SystemInfo.compareVersionNumbers(SystemInfo.OS_VERSION, "10.9") == 1;
+          SystemInfo.compareVersionNumbers(SystemInfo.OS_VERSION, "10.9.9") == 1;
   
   private static final boolean isMacOSElCapitan =
           isMacOSYosemite && !SystemInfo.OS_VERSION.startsWith("10.10");
