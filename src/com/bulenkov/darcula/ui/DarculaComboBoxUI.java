@@ -24,11 +24,15 @@ import sun.swing.DefaultLookup;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.DimensionUIResource;
 import javax.swing.plaf.InsetsUIResource;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+import javax.swing.plaf.basic.BasicComboPopup;
+import javax.swing.plaf.basic.ComboPopup;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -208,7 +212,13 @@ public class DarculaComboBoxUI extends BasicComboBoxUI implements Border {
     }
   }
 
+  @Override
+  protected ComboPopup createPopup() {
 
+    BasicComboPopup popup = new BasicComboPopup(comboBox);
+    popup.setBorder(new DarculaPopupMenuBorder());
+    return popup;
+  }
 
   @Override
   protected void installKeyboardActions() {
