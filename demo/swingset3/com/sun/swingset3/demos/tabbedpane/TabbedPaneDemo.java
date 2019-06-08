@@ -31,6 +31,7 @@
 
 package com.sun.swingset3.demos.tabbedpane;
 
+import com.bulenkov.darcula.DarculaLaf;
 import com.bulenkov.iconloader.util.UIUtil;
 import com.sun.swingset3.DemoProperties;
 import com.sun.swingset3.demos.ResourceManager;
@@ -86,12 +87,15 @@ public class TabbedPaneDemo extends JPanel implements ActionListener {
     /**
      * main method allows us to run as a standalone demo.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
+        UIManager.setLookAndFeel(new DarculaLaf());
+
         JFrame frame = new JFrame(TabbedPaneDemo.class.getAnnotation(DemoProperties.class).value());
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(new TabbedPaneDemo());
-        frame.setPreferredSize(new Dimension(800, 600));
+        frame.setPreferredSize(new Dimension(100, 600));
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -127,6 +131,8 @@ public class TabbedPaneDemo extends JPanel implements ActionListener {
 
         // create tab 
         tabbedpane = new JTabbedPane();
+        tabbedpane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+
         add(tabbedpane, BorderLayout.CENTER);
 
         String name = resourceManager.getString("TabbedPaneDemo.camille");
