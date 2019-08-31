@@ -30,6 +30,8 @@ public class DarculaPopupMenuBorder extends AbstractBorder implements UIResource
 
   @Override
   public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+    g.setColor(c.getBackground());
+    g.fillRect(0, 0, width, height);
     g.setColor(UIManager.getColor("Separator.foreground"));
     g.drawRect(1, 1,width-2,height-2);
   }
@@ -37,5 +39,10 @@ public class DarculaPopupMenuBorder extends AbstractBorder implements UIResource
   @Override
   public Insets getBorderInsets(Component c) {
     return new InsetsUIResource(SIZE, SIZE, SIZE, SIZE);
+  }
+
+  @Override
+  public boolean isBorderOpaque() {
+    return true;
   }
 }
