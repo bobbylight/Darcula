@@ -109,6 +109,11 @@ public final class DarculaLaf extends BasicLookAndFeel {
       Font font = new Font(".SF NS Text", style, size);
       if (!isDialogFont(font)) {
         return new FontUIResource(font);
+      } else {
+        font = new Font(".SFNS-Regular", style, size);
+        if (!isDialogFont(font)) {
+          return new FontUIResource(font);
+        }
       }
     } else if (SystemInfo.isWindows) {
       Font font = (Font) Toolkit.getDefaultToolkit().getDesktopProperty("win.messagebox.font");

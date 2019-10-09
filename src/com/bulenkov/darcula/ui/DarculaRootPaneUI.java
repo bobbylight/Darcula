@@ -15,6 +15,8 @@
  */
 package com.bulenkov.darcula.ui;
 
+import com.bulenkov.iconloader.util.SystemInfo;
+
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
@@ -74,6 +76,9 @@ public class DarculaRootPaneUI extends BasicRootPaneUI {
   @Override
   public void installUI(JComponent c) {
     super.installUI(c);
+    if (SystemInfo.isMac || SystemInfo.isLinux) {
+      c.putClientProperty("jetbrains.awt.windowDarkAppearance", true);
+    }
     myRootPane = (JRootPane)c;
     int style = myRootPane.getWindowDecorationStyle();
     if (style != JRootPane.NONE) {
