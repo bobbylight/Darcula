@@ -46,7 +46,6 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -144,12 +143,13 @@ public final class DarculaLaf extends BasicLookAndFeel {
     defaults.put("TextPane.font", textFont);
     defaults.put("EditorPane.font", textFont);
   }
-  
+
+  @SuppressWarnings("unchecked")
   public static void installMacOSXFonts(UIDefaults defaults) {
     final String face = ".Helvetica Neue DeskInterface";
     final FontUIResource uiFont = getFont(face, 13, Font.PLAIN);
     initFontDefaults(defaults, uiFont);
-    for (Object key : new HashSet<>(defaults.keySet())) {
+    for (Object key : new HashSet(defaults.keySet())) {
       Object value = defaults.get(key);
       if (value instanceof FontUIResource) {
         FontUIResource font = (FontUIResource)value;
@@ -241,7 +241,7 @@ public final class DarculaLaf extends BasicLookAndFeel {
     try {
 
       InputStream is = DarculaLaf.class.getResourceAsStream("darcula.css");
-      Reader r = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+      Reader r = new BufferedReader(new InputStreamReader(is, "UTF-8"));
       defaultStyles.loadRules(r, null);
       r.close();
 
