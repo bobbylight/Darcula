@@ -58,8 +58,13 @@ public final class DarculaLaf extends BasicLookAndFeel {
         base = new MetalLookAndFeel();
         MetalLookAndFeel.setCurrentTheme(new DarculaMetalTheme());
       } else {
-        final String name = UIManager.getSystemLookAndFeelClassName();
-        base = (BasicLookAndFeel)Class.forName(name).newInstance();
+        final String lafClassName = UIManager.getSystemLookAndFeelClassName();
+        for(UIManager.LookAndFeelInfo info: UIManager.getInstalledLookAndFeels()) {
+          if(info.getClassName().equals(lafClassName)) {
+            base = (BasicLookAndFeel) UIManager.createLookAndFeel(info.getName());
+            break;
+          }
+        }
       }
     }
     catch (Exception ignore) {
